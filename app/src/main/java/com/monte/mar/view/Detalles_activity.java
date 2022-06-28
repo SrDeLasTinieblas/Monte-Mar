@@ -152,7 +152,7 @@ public class Detalles_activity extends AppCompatActivity implements View.OnClick
     private void setViews(){
         textTitulo.setText(shoppingCart.getTitulo());
         textDescripcion.setText(shoppingCart.getDescripcion());
-        textPrecio.setText("S/"+((shoppingCart.getPrecioTotal())));
+        textPrecio.setText(new StringBuilder().append("S/").append(shoppingCart.getPrecioTotal()).toString());
         // Warning
         // Si no esta shoppingCart en el SharedPreferences, entonces la amount por defecto es null
         // porque el Json que traemos del server no tiene dicho valor
@@ -161,8 +161,6 @@ public class Detalles_activity extends AppCompatActivity implements View.OnClick
 
 
     }
-
-
 
     boolean estaEnSharedPreference = false;
     boolean inCarrito = false;
@@ -197,14 +195,12 @@ public class Detalles_activity extends AppCompatActivity implements View.OnClick
 
     @Override
     public void onBackPressed() {
-        /**
-
+        /*
          estaEnSharedPreference = falso
          .->>>>>>>>>>>  GuardarOrRemover() =  anadir
 
          estaEnSharedPreference = true
          .->>>>>>>>>>>  GuardarOrRemover() =  eliminar
-
          */
 
         if(inCarrito){
@@ -224,6 +220,15 @@ public class Detalles_activity extends AppCompatActivity implements View.OnClick
         }
 
         super.onBackPressed();
+    }
+
+    public void delete(View view){
+
+        System.out.println("hola");
+        Iterator<ShoppingCart> itr = shoppingCartListDatoes.iterator();
+        itr.remove();
+
+
     }
 
     // Aqui actualizamos el color
