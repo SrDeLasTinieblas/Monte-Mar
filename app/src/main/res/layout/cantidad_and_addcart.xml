@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/txtCantidad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="265dp"
+        android:layout_marginTop="50dp"
+        android:text="@string/_1"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btnAumentar"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="200dp"
+        android:layout_marginTop="45dp"
+        android:background="@drawable/button_login"
+        android:onClick="btnAumentando"
+        android:text="@string/mas"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btnDisminuir"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="300dp"
+        android:layout_marginTop="45dp"
+        android:background="@drawable/button_login"
+        android:onClick="btnDisminuir"
+        android:text="@string/menos"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>
