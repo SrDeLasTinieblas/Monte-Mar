@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -88,13 +89,9 @@ public class Detalles_activity extends AppCompatActivity implements View.OnClick
 
         textPrecio.setText("S/"+(shoppingCart.getPrecioTotal()));
         String titulo = textTitulo.getText().toString().replace(" ","");//s1.replace('a','e');//replaces all occurrences of 'a' to 'e'
-        System.out.println("KEY: " + titulo +" Precio: " + shoppingCart.getPrecioTotal() + "\n");
-        // setPreferences((titulo), price);
-        /*int e = sharedPreferences.getInt("price", 0);
-        int datos = sharedPreferences.getInt("datos", 0);
+        Log.d("Precio",":"+shoppingCart.getPrecioTotal());
+        Log.d("Titulo",":"+titulo );
 
-        System.out.println(e);
-        System.out.println(datos);*/
 
         //sharedPreferences = getSharedPreferences("LimpiatodoKristalClean", Context.MODE_PRIVATE);
         //String highScore = sharedPreferences.getString(("LimpiatodoKristalClean"), "sss");
@@ -128,27 +125,6 @@ public class Detalles_activity extends AppCompatActivity implements View.OnClick
 
     }
 
-    private void setPreferences(String key, float precio){
-        SharedPreferences preferencias=getSharedPreferences("datos",Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor=preferencias.edit();
-        editor.putFloat("price", precio);
-        editor.apply();
-        //finish();
-
-        //float e = preferencias.getFloat(ti, 0.0f);
-        //System.out.println(e);
-        /*SharedPreferences preferencias=getSharedPreferences("datos",Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor=preferencias.edit();
-        editor.putString("mail", "et1.getText().toString()");
-        editor.apply();
-        finish();*/
-        /*SharedPreferences preferencias=getSharedPreferences("datos",Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor=preferencias.edit();
-        editor.putString("price", String.valueOf(price));
-        editor.apply();*/
-        //finish();
-    }
-
     //Aqui mandamos a llamar al button addShopping para cuando le den click se guarde el producto o se elimine
     public void AddShopping(View view){
         GuardarOrRemover();
@@ -168,24 +144,9 @@ public class Detalles_activity extends AppCompatActivity implements View.OnClick
     private void getClassCarrito(){
         Bundle bundle = getIntent().getExtras();
 
-        //aqui hacemos uso de la clase shoppingCart mandamos a llamar intent_name
+        // Aqui hacemos uso de la clase Constants mandamos a llamar intent_name
         shoppingCart = bundle.getParcelable(Constants.INTENT_NAME);
 
-        /**
-         *
-
-
-         Precio Leji = 10
-         Cantidad    = 1
-         Image      //////
-
-         */
-
-
-        // Obtenemos el contenido de la clase ShoppingCart
-
-        //textPrecio.setText("S/"+(shoppingCart.getPrecio()) * valor);
-        //textPrecio.setText("S/"+((shoppingCart.getPrecio() * valor)));
     }
 
     private void setViews(){

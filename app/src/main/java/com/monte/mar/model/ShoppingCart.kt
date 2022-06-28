@@ -6,6 +6,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
+// Creamos una class llamada "ShoppingCart" para serializar lo que nos llegara por el adaptador
 data class ShoppingCart(
         @SerializedName("Id") val id: Int,
         @SerializedName("Image") @Expose val image: String,

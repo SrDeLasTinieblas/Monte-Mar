@@ -82,5 +82,17 @@
 
         />
 
+    <Button
+        android:id="@+id/button"
+        android:layout_width="146dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tablaCompras"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="23dp"
+        android:layout_marginEnd="56dp"
+        android:layout_marginBottom="7dp"
+        android:layout_toEndOf="@+id/textView"
+        android:text="Eliminar carrito" />
+
 
 </RelativeLayout>
