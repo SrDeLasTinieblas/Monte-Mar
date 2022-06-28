@@ -19,10 +19,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.monte.mar.CarritoAdaptador;
 import com.monte.mar.constants.Constants;
-import com.monte.mar.model.Trolley;
+import com.monte.mar.model.ShoppingCart;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.monte.mar.data.FirebaseData;
+import com.monte.mar.model.data.FirebaseData;
 import com.monte.mar.model.SweetAlertDialog;
 
 import java.lang.reflect.Type;
@@ -61,7 +61,7 @@ public class Carrito_activity extends AppCompatActivity {
         //onCustomers();
     }
 
-    private List<Trolley> trolleyListCompra;
+    private List<ShoppingCart> shoppingCartListCompra;
     private CarritoAdaptador adapter;
     @SuppressLint("SetTextI18n")
     private void addDataTrolley(){
@@ -72,18 +72,18 @@ public class Carrito_activity extends AppCompatActivity {
         if(preferences.contains(Constants.SHARED_PREFERENCES_NAME)){
             String datos = preferences.getString(Constants.SHARED_PREFERENCES_NAME,"No se encontraron datos");
             Type typeList;
-            typeList = new TypeToken<List<Trolley>>(){}.getType();
+            typeList = new TypeToken<List<ShoppingCart>>(){}.getType();
 
-            trolleyListCompra = new ArrayList<>();
-            trolleyListCompra.addAll(new Gson().fromJson(datos,typeList));
-            adapter = new CarritoAdaptador(this, trolleyListCompra);
+            shoppingCartListCompra = new ArrayList<>();
+            shoppingCartListCompra.addAll(new Gson().fromJson(datos,typeList));
+            adapter = new CarritoAdaptador(this, shoppingCartListCompra);
             tablaCompras.setAdapter(adapter);
 
             // Aqui hacemos un foreach para recorrer todo lo que esta en las listas y guardarlos
-            for(Trolley trolley : trolleyListCompra){
-                totalPrice += trolley.getPrecioTotal();
-                products.add(trolley.getTitulo());
-                amount.add(trolley.getCantidad());
+            for(ShoppingCart shoppingCart : shoppingCartListCompra){
+                totalPrice += shoppingCart.getPrecioTotal();
+                products.add(shoppingCart.getTitulo());
+                amount.add(shoppingCart.getCantidad());
             }
             price.setText("S/"+ totalPrice);
         }
@@ -95,12 +95,12 @@ public class Carrito_activity extends AppCompatActivity {
     }
 
     private void searchItem(String titulo){
-        for(Trolley trolley : trolleyListCompra){
-            if (Objects.equals(trolley.getTitulo(), titulo)){
-                System.out.println("Es igual a titulo ==> "+ trolley.getTitulo());
+        for(ShoppingCart shoppingCart : shoppingCartListCompra){
+            if (Objects.equals(shoppingCart.getTitulo(), titulo)){
+                System.out.println("Es igual a titulo ==> "+ shoppingCart.getTitulo());
 
             }else{
-                System.out.println("No es igual a titulo ==> "+ trolley.getTitulo());
+                System.out.println("No es igual a titulo ==> "+ shoppingCart.getTitulo());
             }
         }
     }

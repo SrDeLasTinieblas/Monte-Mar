@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.monte.mar.model.Trolley;
+import com.monte.mar.model.ShoppingCart;
 //import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -20,17 +20,17 @@ import monte.montemar.R;
 
 public class CarritoAdaptador extends BaseAdapter {
     private final Context context;
-    private final List<Trolley> trolleyList;
+    private final List<ShoppingCart> shoppingCartList;
 
     // creamos un costructos para despues llamar al adaptador con el costructor
-    public CarritoAdaptador(Context context, List<Trolley> trolleyList)  {
+    public CarritoAdaptador(Context context, List<ShoppingCart> shoppingCartList)  {
         this.context=context;
-        this.trolleyList = trolleyList;
+        this.shoppingCartList = shoppingCartList;
     }
 
     @Override
     public int getCount() {
-        return trolleyList.size();
+        return shoppingCartList.size();
     }
 
     @Override
@@ -43,12 +43,12 @@ public class CarritoAdaptador extends BaseAdapter {
         return 0;
     }
 
-    private List<Trolley> trolleyListCompra;
+    private List<ShoppingCart> shoppingCartListCompra;
     List<String> productos = new ArrayList<>();
     @SuppressLint({"ViewHolder", "SetTextI18n"})
     @Override      //position - convertView -  parent
     public View getView(int i, View v, ViewGroup viewGroup) {
-        trolleyListCompra = new ArrayList<>();
+        shoppingCartListCompra = new ArrayList<>();
 
         if(v == null){
             LayoutInflater inflater = (LayoutInflater) context
@@ -56,13 +56,13 @@ public class CarritoAdaptador extends BaseAdapter {
             v = inflater.inflate(R.layout.carrito_elements, viewGroup, false);
         }
 
-        String TituloActual = trolleyList.get(i).getTitulo();
-        String DescripcionActual = trolleyList.get(i).getDescripcion();
-        String PrecioActual = String.valueOf(trolleyList.get(i).getPrecioUnitario());
-        String Cantidad = String.valueOf(trolleyList.get(i).getCantidad());
-        String ImagenActual = trolleyList.get(i).getImage();
+        String TituloActual = shoppingCartList.get(i).getTitulo();
+        String DescripcionActual = shoppingCartList.get(i).getDescripcion();
+        String PrecioActual = String.valueOf(shoppingCartList.get(i).getPrecioUnitario());
+        String Cantidad = String.valueOf(shoppingCartList.get(i).getCantidad());
+        String ImagenActual = shoppingCartList.get(i).getImage();
 
-        float PrecioTotal = trolleyList.get(i).getPrecioTotal();
+        float PrecioTotal = shoppingCartList.get(i).getPrecioTotal();
 
         TextView textTitulo = v.findViewById(R.id.textTitulo);
         TextView textDescipcion = v.findViewById(R.id.textDescripcion);
@@ -80,13 +80,13 @@ public class CarritoAdaptador extends BaseAdapter {
                 .placeholder(R.drawable.logo)
                 .into(imagen);
 
-        for(Trolley trolley : trolleyListCompra){
-            //System.out.println(trolley.getTitulo());
-            productos.add(trolley.getTitulo());
+        for(ShoppingCart shoppingCart : shoppingCartListCompra){
+            //System.out.println(shoppingCart.getTitulo());
+            productos.add(shoppingCart.getTitulo());
             //float e = preferencias.getFloat("precio" , 0.0f);
             //System.out.println("holaaaa");
         }
-        //for(Trolley carrito : trolleyListCompra){
+        //for(ShoppingCart carrito : shoppingCartListCompra){
 
             /*if (Objects.equals(carrito.getTitulo(), "Saca Grasa")){
                 //System.out.println("==> "+carrito.getTitulo());

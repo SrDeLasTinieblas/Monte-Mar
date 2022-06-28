@@ -9,7 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
-import com.monte.mar.model.Trolley;
+import com.monte.mar.model.ShoppingCart;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,19 +20,19 @@ import monte.montemar.R;
 public class Adaptador extends BaseAdapter {
 
     Context context;
-    List<Trolley> trolleyList;
-    List<Trolley> trolleyListOriginal;
+    List<ShoppingCart> shoppingCartList;
+    List<ShoppingCart> shoppingCartListOriginal;
 
-    public Adaptador(Context context,List<Trolley> trolleyList)  {
+    public Adaptador(Context context,List<ShoppingCart> shoppingCartList)  {
         this.context=context;
-        this.trolleyList = trolleyList;
-        this.trolleyListOriginal = new ArrayList<>();
-        this.trolleyListOriginal.addAll(this.trolleyList);
+        this.shoppingCartList = shoppingCartList;
+        this.shoppingCartListOriginal = new ArrayList<>();
+        this.shoppingCartListOriginal.addAll(this.shoppingCartList);
     }
 
     @Override
     public int getCount() {
-        return trolleyList.size();
+        return shoppingCartList.size();
     }
 
     @Override
@@ -58,10 +58,10 @@ public class Adaptador extends BaseAdapter {
 
         // Aqui obtenemos traemos lo que esta en getTitulo, getDescripcion, getPrecio y imagen
         // para despues guardarlo en esas variables
-        String TituloActual = trolleyList.get(i).getTitulo();
-        String DescripcionActual = trolleyList.get(i).getDescripcion();
-        String PrecioActual = String.valueOf(trolleyList.get(i).getPrecioUnitario());
-        String ImagenActual = trolleyList.get(i).getImage();
+        String TituloActual = shoppingCartList.get(i).getTitulo();
+        String DescripcionActual = shoppingCartList.get(i).getDescripcion();
+        String PrecioActual = String.valueOf(shoppingCartList.get(i).getPrecioUnitario());
+        String ImagenActual = shoppingCartList.get(i).getImage();
 
         // Aqui difinimos lo que esta en nuestro layout
         TextView textTitulo = v.findViewById(R.id.textTitulo);
@@ -86,7 +86,7 @@ public class Adaptador extends BaseAdapter {
 
 
     /*private void searchItem(String titulo){
-        for(Trolley carrito : carritoListCompra){
+        for(ShoppingCart carrito : carritoListCompra){
             if (Objects.equals(carrito.getTitulo(), titulo)){
                 System.out.println("Es igual a titulo ==> "+carrito.getTitulo());
                 //tv.setText("TituloActual");
@@ -100,22 +100,22 @@ public class Adaptador extends BaseAdapter {
         int longitud = textBuscar.length();
 
         //Log.d("adaptador", "Longitud " + longitud);
-        //Log.d("adaptador orginal", new Gson().toJson(this.trolleyListOriginal));
-        trolleyList.clear();
-        trolleyList.addAll(trolleyListOriginal);
+        //Log.d("adaptador orginal", new Gson().toJson(this.shoppingCartListOriginal));
+        shoppingCartList.clear();
+        shoppingCartList.addAll(shoppingCartListOriginal);
 
         if(longitud > 0) {
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-                List<Trolley> collecion = trolleyList.stream().
+                List<ShoppingCart> collecion = shoppingCartList.stream().
                         filter(i -> i.getTitulo().toLowerCase().contains(textBuscar.toLowerCase()))
                         .collect(Collectors.toList());
-                trolleyList.clear();
-                trolleyList.addAll(collecion);
+                shoppingCartList.clear();
+                shoppingCartList.addAll(collecion);
 
             }else {
-                for (Trolley c: trolleyList) {
+                for (ShoppingCart c: shoppingCartList) {
                     if(c.getTitulo().toLowerCase().contains(textBuscar.toLowerCase())){
-                        trolleyList.add(c);
+                        shoppingCartList.add(c);
                         System.out.println("Vieja version de android");
                     }
                 }

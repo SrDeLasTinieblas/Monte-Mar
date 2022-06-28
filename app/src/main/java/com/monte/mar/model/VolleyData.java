@@ -29,7 +29,7 @@ public class VolleyData {
     List<String> descripcion;
     List<String> precio;
     List<String> images;
-    List<Trolley> trolleyList = new ArrayList<>();
+    List<ShoppingCart> shoppingCartList = new ArrayList<>();
     RequestQueue requestQueue;
 
     public void getData(Context context) {
@@ -41,10 +41,10 @@ public class VolleyData {
                     public void onResponse(String response) {
                         try {
 
-                            Type typeList = new TypeToken<List<Trolley>>() {}.getType();
-                            List<Trolley> trolleyListResponse = new Gson().fromJson(response, typeList);
+                            Type typeList = new TypeToken<List<ShoppingCart>>() {}.getType();
+                            List<ShoppingCart> shoppingCartListResponse = new Gson().fromJson(response, typeList);
 
-                            trolleyList.addAll(trolleyListResponse);
+                            shoppingCartList.addAll(shoppingCartListResponse);
                             JSONArray jsonArray = new JSONArray(response);
                             List<Adaptador> lista = new ArrayList<>(); // definiendo la lista de elementos
                             titulo = new ArrayList<String>();
@@ -69,7 +69,7 @@ public class VolleyData {
 
                             }
                             // Aqui actualizamos el adapter para cargar los datos y que los muestre
-                            adaptador = new Adaptador(context, trolleyList);
+                            adaptador = new Adaptador(context, shoppingCartList);
                             tabla.setAdapter(adaptador);
 // Cambio ooo
 

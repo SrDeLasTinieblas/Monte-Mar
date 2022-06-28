@@ -1,4 +1,4 @@
-package com.monte.mar.data;
+package com.monte.mar.model.data;
 
 import android.content.Context;
 

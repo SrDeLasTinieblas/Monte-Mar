@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.monte.mar.constants.Constants;
-import com.monte.mar.model.Trolley;
+import com.monte.mar.model.ShoppingCart;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.monte.mar.model.SweetAlertDialog;
@@ -29,7 +29,7 @@ import java.util.List;
 import monte.montemar.R;
 
 public class Detalles_activity extends AppCompatActivity implements View.OnClickListener {
-    private Trolley trolley;
+    private ShoppingCart shoppingCart;
     private SharedPreferences preferences;
     //SharedPreferences.Editor editor;
 
@@ -68,8 +68,8 @@ public class Detalles_activity extends AppCompatActivity implements View.OnClick
         getClassCarrito();
         getImageView();
         //onCustomers();
-        // Aqui mandamos a llamar la funcion cargarDatosCarrito y le pasamos el id de la clase Trolley
-        CargarDatosCarrito(trolley.getId());
+        // Aqui mandamos a llamar la funcion cargarDatosCarrito y le pasamos el id de la clase ShoppingCart
+        CargarDatosCarrito(shoppingCart.getId());
 
 
         setViews();
@@ -77,17 +77,18 @@ public class Detalles_activity extends AppCompatActivity implements View.OnClick
 
     }
 
+    @SuppressLint("SetTextI18n")
     public void btnAumentando(View view){
-        // Add Cantidad en tu Trolley Model
-        trolley.setCantidad(++valor);
+        // Add Cantidad en tu ShoppingCart Model
+        shoppingCart.setCantidad(++valor);
 
 
-        textCantidad.setText(String.valueOf(trolley.getCantidad()));
+        textCantidad.setText(String.valueOf(shoppingCart.getCantidad()));
 
 
-        textPrecio.setText("S/"+(trolley.getPrecioTotal()));
+        textPrecio.setText("S/"+(shoppingCart.getPrecioTotal()));
         String titulo = textTitulo.getText().toString().replace(" ","");//s1.replace('a','e');//replaces all occurrences of 'a' to 'e'
-        System.out.println("KEY: " + titulo +" Precio: " + trolley.getPrecioTotal() + "\n");
+        System.out.println("KEY: " + titulo +" Precio: " + shoppingCart.getPrecioTotal() + "\n");
         // setPreferences((titulo), price);
         /*int e = sharedPreferences.getInt("price", 0);
         int datos = sharedPreferences.getInt("datos", 0);
@@ -104,24 +105,24 @@ public class Detalles_activity extends AppCompatActivity implements View.OnClick
 
     public void btnDisminuir(View view){
         if (valor > 1) {
-            trolley.setCantidad(--valor);
-            textCantidad.setText(String.valueOf(trolley.getCantidad()));
+            shoppingCart.setCantidad(--valor);
+            textCantidad.setText(String.valueOf(shoppingCart.getCantidad()));
 
 
-            textPrecio.setText("S/"+(trolley.getPrecioTotal()));
+            textPrecio.setText("S/"+(shoppingCart.getPrecioTotal()));
             String titulo = textTitulo.getText().toString().replace(" ","");//s1.replace('a','e');//replaces all occurrences of 'a' to 'e'
-            System.out.println("KEY: " + titulo +" Precio: " + trolley.getPrecioTotal() + "\n");
+            System.out.println("KEY: " + titulo +" Precio: " + shoppingCart.getPrecioTotal() + "\n");
             //setPreferences((titulo), price);
-            //float price = trolley.getPrecio() * valor;
+            //float price = shoppingCart.getPrecio() * valor;
             //setPreferences(String.valueOf(textTitulo), String.valueOf(price));
 
         }else {
-            textCantidad.setText(String.valueOf(trolley.getCantidad()));
+            textCantidad.setText(String.valueOf(shoppingCart.getCantidad()));
 
 
-            textPrecio.setText("S/"+(trolley.getPrecioTotal()));
+            textPrecio.setText("S/"+(shoppingCart.getPrecioTotal()));
             String titulo = textTitulo.getText().toString().replace(" ","");//s1.replace('a','e');//replaces all occurrences of 'a' to 'e'
-            System.out.println("KEY: " + titulo +" Precio: " + trolley.getPrecioTotal() + "\n");
+            System.out.println("KEY: " + titulo +" Precio: " + shoppingCart.getPrecioTotal() + "\n");
             //setPreferences((titulo), price);
         }
 
@@ -154,10 +155,10 @@ public class Detalles_activity extends AppCompatActivity implements View.OnClick
     }
     // esto es para que no de error al obtener una imagen
     private void getImageView(){
-        if(trolley.getImage()!=null){
-            if(!trolley.getImage().isEmpty()){
+        if(shoppingCart.getImage()!=null){
+            if(!shoppingCart.getImage().isEmpty()){
                 Glide.with(this)
-                        .load(trolley.getImage())
+                        .load(shoppingCart.getImage())
                         .placeholder(R.drawable.logo)
                         .into(imageView);
             }
@@ -167,8 +168,8 @@ public class Detalles_activity extends AppCompatActivity implements View.OnClick
     private void getClassCarrito(){
         Bundle bundle = getIntent().getExtras();
 
-        //aqui hacemos uso de la clase trolley mandamos a llamar intent_name
-        trolley = bundle.getParcelable(Constants.INTENT_NAME);
+        //aqui hacemos uso de la clase shoppingCart mandamos a llamar intent_name
+        shoppingCart = bundle.getParcelable(Constants.INTENT_NAME);
 
         /**
          *
@@ -181,21 +182,21 @@ public class Detalles_activity extends AppCompatActivity implements View.OnClick
          */
 
 
-        // Obtenemos el contenido de la clase Trolley
+        // Obtenemos el contenido de la clase ShoppingCart
 
-        //textPrecio.setText("S/"+(trolley.getPrecio()) * valor);
-        //textPrecio.setText("S/"+((trolley.getPrecio() * valor)));
+        //textPrecio.setText("S/"+(shoppingCart.getPrecio()) * valor);
+        //textPrecio.setText("S/"+((shoppingCart.getPrecio() * valor)));
     }
 
     private void setViews(){
-        textTitulo.setText(trolley.getTitulo());
-        textDescripcion.setText(trolley.getDescripcion());
-        textPrecio.setText("S/"+((trolley.getPrecioTotal())));
+        textTitulo.setText(shoppingCart.getTitulo());
+        textDescripcion.setText(shoppingCart.getDescripcion());
+        textPrecio.setText("S/"+((shoppingCart.getPrecioTotal())));
         // Warning
-        // Si no esta trolley en el SharedPreferences, entonces la amount por defecto es null
+        // Si no esta shoppingCart en el SharedPreferences, entonces la amount por defecto es null
         // porque el Json que traemos del server no tiene dicho valor
 
-        textCantidad.setText(String.valueOf(trolley.getCantidad()));
+        textCantidad.setText(String.valueOf(shoppingCart.getCantidad()));
 
 
     }
@@ -205,24 +206,24 @@ public class Detalles_activity extends AppCompatActivity implements View.OnClick
     boolean estaEnSharedPreference = false;
     boolean inCarrito = false;
 
-    private final List<Trolley> trolleyListDatoes = new ArrayList<>();
+    private final List<ShoppingCart> shoppingCartListDatoes = new ArrayList<>();
 
     private void CargarDatosCarrito(Integer idCompra) {
         // si hay datos
         if(preferences.contains(Constants.SHARED_PREFERENCES_NAME)){
             // cargamos la lista entonces
             String datos = preferences.getString(Constants.SHARED_PREFERENCES_NAME,"");
-            Type typeList = new TypeToken<List<Trolley>>(){}.getType();
-            trolleyListDatoes.addAll(new Gson().fromJson(datos,typeList));
+            Type typeList = new TypeToken<List<ShoppingCart>>(){}.getType();
+            shoppingCartListDatoes.addAll(new Gson().fromJson(datos,typeList));
 
             // Con el foreach recorremos la lista de datos
-            for (Trolley trolley : trolleyListDatoes){
+            for (ShoppingCart shoppingCart : shoppingCartListDatoes){
                 // Aqui comparamos los IDs si son iguales es true
-                if(trolley.getId() == (idCompra)){
+                if(shoppingCart.getId() == (idCompra)){
                     estaEnSharedPreference = true;
                     inCarrito = true;
-                    this.trolley = trolley;
-                    valor = this.trolley.getCantidad();
+                    this.shoppingCart = shoppingCart;
+                    valor = this.shoppingCart.getCantidad();
                     break;
                 }
             }
@@ -247,16 +248,16 @@ public class Detalles_activity extends AppCompatActivity implements View.OnClick
 
         if(inCarrito){
 
-            for(Trolley trolley : trolleyListDatoes){
+            for(ShoppingCart shoppingCart : shoppingCartListDatoes){
 
-                if(trolley.getId() == (this.trolley.getId())){
-                    trolley = this.trolley;
+                if(shoppingCart.getId() == (this.shoppingCart.getId())){
+                    shoppingCart = this.shoppingCart;
                     break;
                 }
             }
 
             @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editor = preferences.edit();
-            editor.putString(Constants.SHARED_PREFERENCES_NAME, new Gson().toJson(trolleyListDatoes));
+            editor.putString(Constants.SHARED_PREFERENCES_NAME, new Gson().toJson(shoppingCartListDatoes));
             editor.apply();
 
         }
@@ -281,28 +282,28 @@ public class Detalles_activity extends AppCompatActivity implements View.OnClick
         if(estaEnSharedPreference){
             // Si hay datos lo eliminara
             estaEnSharedPreference = false;
-            Iterator<Trolley> itr = trolleyListDatoes.iterator();
+            Iterator<ShoppingCart> itr = shoppingCartListDatoes.iterator();
 
             // Mientras halla siguiente va seguir la condicion
             while (itr.hasNext()) {
                 // Aqui obtenemos el id y lo comparamos con el siguiente id si es igual lo borrara
-                if(trolley.getId() == (itr.next().getId())){
+                if(shoppingCart.getId() == (itr.next().getId())){
                     itr.remove();
-                    Toast.makeText(getApplicationContext(), "Quitado del trolley" , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Quitado del shoppingCart" , Toast.LENGTH_SHORT).show();
                     break;
                 }
             }
         } else {
             // sino está lo agregas
             estaEnSharedPreference = true;
-            trolleyListDatoes.add(trolley);
-            Toast.makeText(getApplicationContext(), "Añadido al trolley" , Toast.LENGTH_SHORT).show();
+            shoppingCartListDatoes.add(shoppingCart);
+            Toast.makeText(getApplicationContext(), "Añadido al shoppingCart" , Toast.LENGTH_SHORT).show();
         }
 
 
         // Aqui le estoy diciendo que me guarde los datos en un json y aplico los cambios
         @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(Constants.SHARED_PREFERENCES_NAME, new Gson().toJson(trolleyListDatoes));
+        editor.putString(Constants.SHARED_PREFERENCES_NAME, new Gson().toJson(shoppingCartListDatoes));
         editor.apply();
 
         // Aqui llamamos a la funcion updateBackGranud y como parametro le ponemos estaInDatos

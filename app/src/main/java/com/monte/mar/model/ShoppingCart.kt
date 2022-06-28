@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class Trolley(
+data class ShoppingCart(
         @SerializedName("Id") val id: Int,
         @SerializedName("Image") @Expose val image: String,
         @SerializedName("PrecioCosto") @Expose val precioCosto: Int,
@@ -21,4 +21,4 @@ data class Trolley(
         fun getPrecioTotal(): Float {
         return cantidad * precioUnitario
         }
-        }
+}
