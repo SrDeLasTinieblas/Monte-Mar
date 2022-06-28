@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E5E5E5"
+    tools:context=".Comprando_fragment">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="70dp"
+        android:background="#E5E5E5"
+        android:gravity="center"
+        android:text="@string/mis_compras"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="@color/purple_500" />
+
+    <GridView
+        android:id="@+id/tablaCompras1"
+        android:layout_width="343dp"
+        android:layout_height="384dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="-4dp"
+        android:layout_marginTop="-20dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="1dp"
+        android:gravity="center"
+        android:numColumns="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="314dp"
+        android:layout_height="71dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="250dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="25dp"
+        app:cardCornerRadius="20dp">
+
+        <TextView
+            android:id="@+id/textPrecioComprando"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/precio_total"
+
+            android:textColor="#000000"
+            android:textSize="32sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/PrecioTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="250dp"
+            android:layout_marginTop="560dp"
+            android:text="@string/_00_00"
+
+            android:textColor="#000000"
+            android:textSize="32sp"
+            android:textStyle="bold" />
+    </androidx.cardview.widget.CardView>
+
+</FrameLayout>

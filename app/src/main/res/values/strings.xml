@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">MonteMar</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="precio_total">Precio Total</string>
+    <string name="mis_compras">Mis Compras</string>
+    <string name="_00_00">00.00</string>
+    <string name="actico">Actico</string>
+    <string name="descripcion">Descripcion</string>
+    <string name="titulo">Titulo</string>
+    <string name="todo">TODO</string>
+    <string name="button">Button</string>
+    <string name="comprar">COMPRAR</string>
+    <string name="proximamente">PROXIMAMENTE...</string>
+    <string name="descruento_en_todo">DESCRUENTO EN TODO</string>
+    <string name="_15">15%</string>
+    <string name="mis_pedidos">MIS PEDIDOS</string>
+
+    <string name="invalid_mail">Ingrese mail valido</string>
+    <string name="invalid_password">Ingrese un password mayor a 6 digitos</string>
+    <string name="contrase_a">Contraseña</string>
+    <string name="email">Email</string>
+    <string name="_1">1</string>
+    <string name="_2">2</string>
+    <string name="_3">1</string>
+    <string name="email_">Email</string>
+    <string name="regitrarse">Regitrarse</string>
+
+</resources>
+
+
+
+
+
+
+
+
+
+
+
+

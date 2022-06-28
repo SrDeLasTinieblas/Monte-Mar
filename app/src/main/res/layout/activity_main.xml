@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E5E5E5"
+    tools:context="com.monte.mar.view.MainActivity">
+
+    <!-- Nexus5 android:layout_height="380dp"-->
+    <!-- Dispositivo Fisico android:layout_height="461dp"-->
+
+    <!--//Dispositivo fisico-->
+
+
+    <!--<ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="189dp"
+        android:layout_height="92dp"
+        app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />-->
+
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/btnCarrito"
+        android:layout_width="46dp"
+        android:layout_height="41dp"
+        android:layout_marginEnd="16dp"
+        android:onClick="onClick"
+        app:layout_constraintBottom_toTopOf="@+id/tabla"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.105"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="lf30_editor_ng1vwais.json"
+        app:lottie_loop="true" />
+
+    <Button
+        android:id="@+id/btnMenu"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="26dp"
+        android:background="@drawable/power_on_off_switch_exit_icon"
+        android:onClick="CerrarSession"
+        app:layout_constraintBottom_toTopOf="@+id/tabla"
+        app:layout_constraintEnd_toStartOf="@+id/imageView2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.159"
+        tools:ignore="OnClick,UsingOnClickInXml" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="211dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="44dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <SearchView
+        android:id="@+id/textSearch"
+        android:layout_width="326dp"
+        android:layout_height="39dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/search"
+        app:layout_constraintBottom_toTopOf="@+id/textViewProductosDestacados"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:layout_constraintVertical_bias="0.538" />
+
+    <TextView
+        android:id="@+id/textViewProductosDestacados"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:text="Productos Destacados"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.059"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+    <GridView
+        android:id="@+id/tabla"
+        android:layout_width="332dp"
+        android:layout_height="405dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="10dp"
+        android:numColumns="2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewProductosDestacados" >
+
+        <!--<include layout="@layout/activity_elements" />-->
+    </GridView>
+
+
+    <!--<com.facebook.shimmer.ShimmerFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:shimmer_auto_start="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent">
+    <GridView
+        android:id="@+id/tabla2"
+        android:layout_width="332dp"
+        android:layout_height="405dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="10dp"
+        android:numColumns="2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewProductosDestacados" >
+
+        <include layout="@layout/view_shimmer" />
+
+    </GridView>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>-->
+
+
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="306dp"
+        android:layout_height="110dp"
+        android:layout_marginTop="25dp"
+        app:cardBackgroundColor="#000000"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tabla">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:text="@string/proximamente"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:layout_width="111dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="40dp"
+            android:text="DESCUENTO EN TODO"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="170dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/_15"
+            android:textColor="@color/white"
+            android:textSize="64dp"
+            android:textStyle="bold" />
+    </androidx.cardview.widget.CardView>
+
+
+    <!--<androidx.drawerlayout.widget.DrawerLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:openDrawer="start"
+        android:id="@+id/layout">
+
+    <FrameLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/nav_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            app:headerLayout="@layout/nav_header"
+            app:menu="@menu/drawer_menu" />
+
+</androidx.drawerlayout.widget.DrawerLayout>-->
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

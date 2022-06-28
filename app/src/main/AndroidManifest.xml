@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="monte.montemar">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/logo"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/logo"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+        android:usesCleartextTraffic="true"
+        tools:targetApi="m">
+        <activity
+            android:name="com.monte.mar.view.ProbandoKotlin"
+            android:exported="false" />
+        <activity
+            android:name="com.monte.mar.view.Registrar_activity"
+            android:exported="false" />
+        <activity
+            android:name="com.monte.mar.view.Login_Activity"
+            android:exported="false" />
+        <activity
+            android:name="com.monte.mar.view.Carrito_activity"
+            android:exported="false" />
+        <activity
+            android:name="com.monte.mar.view.Detalles_activity"
+            android:exported="false" />
+        <activity
+            android:name="com.monte.mar.view.MainActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.monte.mar.view.Splash_activity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

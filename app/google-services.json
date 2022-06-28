@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "677849514871",
+    "project_id": "monte-mar-bf545",
+    "storage_bucket": "monte-mar-bf545.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:677849514871:android:4c14c477091e37a5dc9772",
+        "android_client_info": {
+          "package_name": "com.monte.mar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "677849514871-li82dbtbk64kim85gaflk51rjks3e4rr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUzbbhuZ9EW86cGrtKXpxQvRXCFmq1f0s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "677849514871-li82dbtbk64kim85gaflk51rjks3e4rr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
