@@ -40,7 +40,7 @@ import com.monte.mar.Adaptador;
 import com.monte.mar.constants.Constants;
 import com.monte.mar.constants.APIs;
 import com.monte.mar.model.data.FirebaseData;
-import com.monte.mar.model.ShoppingCart;
+import com.monte.mar.model.Carrito;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 //import com.squareup.picasso.Picasso;
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     RequestQueue requestQueue;
-    private final List<ShoppingCart> productsList = new ArrayList<>();
+    private final List<Carrito> productsList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,10 +132,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     public void onResponse(String response) {
                         try {
                             //Sleep(5000);
-                            Type typeList = new TypeToken<List<ShoppingCart>>() {
+                            Type typeList = new TypeToken<List<Carrito>>() {
                             }.getType();
 
-                            List<ShoppingCart> productsListResponse = new Gson().fromJson(response, typeList);
+                            List<Carrito> productsListResponse = new Gson().fromJson(response, typeList);
                             productsList.addAll(productsListResponse);
 
                             // Aqui actualizamos el adapter para cargar los datos y que los muestre

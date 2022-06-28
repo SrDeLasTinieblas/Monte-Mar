@@ -85,6 +85,7 @@
             android:textSize="45sp"
             android:textStyle="bold"
             app:layout_constraintVertical_bias="0.941" />
+        <include layout="@layout/cantidad_and_addcart"/>
 
         <ImageButton
             android:id="@+id/addShopping"
@@ -94,53 +95,60 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="230dp"
-            android:layout_marginTop="87dp"
+            android:layout_marginTop="95dp"
             android:layout_marginBottom="16dp"
-
             android:background="@drawable/border_carrito"
             android:onClick="AddShopping"
             android:src="@drawable/ic_baseline_shopping_cart_24" />
 
 
+
+        <!--<com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/addShopping"
+            android:layout_width="191dp"
+            android:layout_height="129dp"
+            android:layout_marginTop="76dp"
+            android:layout_marginStart="220dp"
+            app:layout_constraintDimensionRatio="1:1"
+            app:lottie_autoPlay="true"
+            android:onClick="AddShopping"
+            app:lottie_fileName="addCart.json"
+            app:lottie_loop="true" />-->
+
+        <!--
         <TextView
             android:id="@+id/txtCantidad"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="255dp"
-            android:layout_marginTop="55dp"
+            android:layout_marginStart="265dp"
+            android:layout_marginTop="38dp"
             android:text="@string/_1"
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <TextView
+        <Button
             android:id="@+id/btnAumentar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="220dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="16dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="200dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/button_login"
             android:onClick="btnAumentando"
-            android:text="+"
+            android:text="@string/mas"
             android:textSize="30sp"
             android:textStyle="bold" />
 
-        <TextView
+        <Button
             android:id="@+id/btnDisminuir"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="290dp"
-            android:layout_marginTop="47dp"
-            android:layout_marginBottom="16dp"
-            android:layout_toStartOf="@+id/txtCantidad"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="300dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/button_login"
             android:onClick="btnDisminuir"
-            android:text="-"
+            android:text="@string/menos"
             android:textSize="30sp"
-            android:textStyle="bold" />
+            android:textStyle="bold" />-->
 
 
         <!--<Button

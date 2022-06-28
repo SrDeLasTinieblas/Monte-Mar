@@ -19,7 +19,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.monte.mar.CarritoAdaptador;
 import com.monte.mar.constants.Constants;
-import com.monte.mar.model.ShoppingCart;
+import com.monte.mar.model.Carrito;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.monte.mar.model.data.FirebaseData;
@@ -30,7 +30,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -40,7 +39,7 @@ import monte.montemar.R;
 public class Carrito_activity extends AppCompatActivity {
     private GridView tablaCompras;
     float totalPrice = 0f;
-    private final List<ShoppingCart> shoppingCartListDatoes = new ArrayList<>();
+    private final List<Carrito> carritoListDatoes = new ArrayList<>();
     SweetAlertDialog sweetAlertDialog = new SweetAlertDialog();
     String payment = "";
     FirebaseFirestore firebaseFirestore;
@@ -67,10 +66,10 @@ public class Carrito_activity extends AppCompatActivity {
     private boolean EmptyOrNoEmpty(){
         // cargamos la lista entonces
         /*String datos = preferences.getString(Constants.SHARED_PREFERENCES_NAME, "");
-            Type typeList = new TypeToken<List<ShoppingCart>>() {
+            Type typeList = new TypeToken<List<Carrito>>() {
             }.getType();
-            shoppingCartListDatoes.addAll(new Gson().fromJson(datos, typeList));
-            Log.d("shoppingCartListDatoes", "" + shoppingCartListDatoes);*/
+            carritoListDatoes.addAll(new Gson().fromJson(datos, typeList));
+            Log.d("carritoListDatoes", "" + carritoListDatoes);*/
         return preferences.contains(Constants.SHARED_PREFERENCES_NAME);
     }
 
@@ -86,11 +85,11 @@ public class Carrito_activity extends AppCompatActivity {
             if(preferences.contains(Constants.SHARED_PREFERENCES_NAME)) {
                 // cargamos la lista entonces
                 String datos = preferences.getString(Constants.SHARED_PREFERENCES_NAME, "");
-                Type typeList = new TypeToken<List<ShoppingCart>>() {
+                Type typeList = new TypeToken<List<Carrito>>() {
                 }.getType();
-                shoppingCartListDatoes.addAll(new Gson().fromJson(datos, typeList));
+                carritoListDatoes.addAll(new Gson().fromJson(datos, typeList));
 
-                Log.d("shoppingCartListDatoes", ""+shoppingCartListDatoes);
+                Log.d("carritoListDatoes", ""+ carritoListDatoes);
 
             }else {
                 System.out.println("No hay datos :(");
@@ -101,10 +100,10 @@ public class Carrito_activity extends AppCompatActivity {
         }
 
         //System.out.println(datos);
-        /*Type typeList = new TypeToken<List<ShoppingCart>>(){}.getType();
-        shoppingCartListDatoes.addAll(new Gson().fromJson(datos,typeList));
+        /*Type typeList = new TypeToken<List<Carrito>>(){}.getType();
+        carritoListDatoes.addAll(new Gson().fromJson(datos,typeList));
         System.out.println("hola");
-        Iterator<ShoppingCart> itr = shoppingCartListDatoes.iterator();
+        Iterator<Carrito> itr = carritoListDatoes.iterator();
         itr.remove();
         System.out.println("==>"+itr);*/
 
@@ -112,7 +111,7 @@ public class Carrito_activity extends AppCompatActivity {
 
 
 
-    private List<ShoppingCart> shoppingCartListCompra;
+    private List<Carrito> carritoListCompra;
     private CarritoAdaptador adapter;
     @SuppressLint("SetTextI18n")
     private void addDataTrolley(){
@@ -123,18 +122,18 @@ public class Carrito_activity extends AppCompatActivity {
         if(preferences.contains(Constants.SHARED_PREFERENCES_NAME)){
             String datos = preferences.getString(Constants.SHARED_PREFERENCES_NAME,"No se encontraron datos");
             Type typeList;
-            typeList = new TypeToken<List<ShoppingCart>>(){}.getType();
+            typeList = new TypeToken<List<Carrito>>(){}.getType();
 
-            shoppingCartListCompra = new ArrayList<>();
-            shoppingCartListCompra.addAll(new Gson().fromJson(datos,typeList));
-            adapter = new CarritoAdaptador(this, shoppingCartListCompra);
+            carritoListCompra = new ArrayList<>();
+            carritoListCompra.addAll(new Gson().fromJson(datos,typeList));
+            adapter = new CarritoAdaptador(this, carritoListCompra);
             tablaCompras.setAdapter(adapter);
 
             // Aqui hacemos un foreach para recorrer todo lo que esta en las listas y guardarlos
-            for(ShoppingCart shoppingCart : shoppingCartListCompra){
-                totalPrice += shoppingCart.getPrecioTotal();
-                products.add(shoppingCart.getTitulo());
-                amount.add(shoppingCart.getCantidad());
+            for(Carrito carrito : carritoListCompra){
+                totalPrice += carrito.getPrecioTotal();
+                products.add(carrito.getTitulo());
+                amount.add(carrito.getCantidad());
             }
             price.setText("S/"+ totalPrice);
         }
@@ -146,12 +145,12 @@ public class Carrito_activity extends AppCompatActivity {
     }
 
     private void searchItem(String titulo){
-        for(ShoppingCart shoppingCart : shoppingCartListCompra){
-            if (Objects.equals(shoppingCart.getTitulo(), titulo)){
-                System.out.println("Es igual a titulo ==> "+ shoppingCart.getTitulo());
+        for(Carrito carrito : carritoListCompra){
+            if (Objects.equals(carrito.getTitulo(), titulo)){
+                System.out.println("Es igual a titulo ==> "+ carrito.getTitulo());
 
             }else{
-                System.out.println("No es igual a titulo ==> "+ shoppingCart.getTitulo());
+                System.out.println("No es igual a titulo ==> "+ carrito.getTitulo());
             }
         }
     }

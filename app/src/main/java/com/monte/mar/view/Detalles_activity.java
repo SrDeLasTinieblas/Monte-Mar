@@ -6,7 +6,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -15,13 +14,9 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.monte.mar.constants.Constants;
-import com.monte.mar.model.ShoppingCart;
+import com.monte.mar.model.Carrito;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.monte.mar.model.SweetAlertDialog;
-import com.stripe.android.paymentsheet.PaymentSheet;
-//import com.squareup.picasso.Picasso;
-
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -30,8 +25,10 @@ import java.util.List;
 import monte.montemar.R;
 
 public class Detalles_activity extends AppCompatActivity implements View.OnClickListener {
-    private ShoppingCart shoppingCart;
+
+    private Carrito carrito;
     private SharedPreferences preferences;
+    //SharedPreferences.Editor editor;
 
     TextView textTitulo,textDescripcion , textPrecio;
     ImageView imageView;
@@ -39,16 +36,12 @@ public class Detalles_activity extends AppCompatActivity implements View.OnClick
 
     private int valor = 1;
     TextView Aumentar, Disminuir, textCantidad;
+    List<String> productos = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalles);
 
-
-        /*paymentConfiguration(this);
-        paymentSheet = new PaymentSheet(this, paymentSheetResult -> {
-            onPaymentResult(paymentSheetResult);
-        });*/
         main();
     }
     private void main(){
@@ -58,33 +51,32 @@ public class Detalles_activity extends AppCompatActivity implements View.OnClick
         definingComponents();
         getClassCarrito();
         getImageView();
-        //onCustomers();
-        // Aqui mandamos a llamar la funcion cargarDatosCarrito y le pasamos el id de la clase ShoppingCart
-        CargarDatosCarrito(shoppingCart.getId());
 
-
+        // Aqui mandamos a llamar la funcion cargarDatosCarrito y le pasamos el id de la clase Carrito
+        CargarDatosCarrito(carrito.getId());
         setViews();
-
-
     }
 
-    @SuppressLint("SetTextI18n")
     public void btnAumentando(View view){
-        // Add Cantidad en tu ShoppingCart Model
-        shoppingCart.setCantidad(++valor);
+        // Add Cantidad en tu Carrito Model
+        carrito.setCantidad(++valor);
 
 
-        textCantidad.setText(String.valueOf(shoppingCart.getCantidad()));
+        textCantidad.setText(String.valueOf(carrito.getCantidad()));
 
 
-        textPrecio.setText("S/"+(shoppingCart.getPrecioTotal()));
+        textPrecio.setText("S/"+(carrito.getPrecioTotal()));
         String titulo = textTitulo.getText().toString().replace(" ","");//s1.replace('a','e');//replaces all occurrences of 'a' to 'e'
-        Log.d("Precio",":"+shoppingCart.getPrecioTotal());
-        Log.d("Titulo",":"+titulo );
+        System.out.println("KEY: " + titulo +" Precio: " + carrito.getPrecioTotal() + "\n");
+        // setPreferences((titulo), precio);
+        /*int e = preferences.getInt("precio", 0);
+        int datos = preferences.getInt("datos", 0);
 
+        System.out.println(e);
+        System.out.println(datos);*/
 
-        //sharedPreferences = getSharedPreferences("LimpiatodoKristalClean", Context.MODE_PRIVATE);
-        //String highScore = sharedPreferences.getString(("LimpiatodoKristalClean"), "sss");
+        //preferences = getSharedPreferences("LimpiatodoKristalClean", Context.MODE_PRIVATE);
+        //String highScore = preferences.getString(("LimpiatodoKristalClean"), "sss");
         //Log.d("Log==> ", highScore);
         //System.out.println("dato ==> "+highScore);
 
@@ -92,25 +84,25 @@ public class Detalles_activity extends AppCompatActivity implements View.OnClick
 
     public void btnDisminuir(View view){
         if (valor > 1) {
-            shoppingCart.setCantidad(--valor);
-            textCantidad.setText(String.valueOf(shoppingCart.getCantidad()));
+            carrito.setCantidad(--valor);
+            textCantidad.setText(String.valueOf(carrito.getCantidad()));
 
 
-            textPrecio.setText("S/"+(shoppingCart.getPrecioTotal()));
+            textPrecio.setText("S/"+(carrito.getPrecioTotal()));
             String titulo = textTitulo.getText().toString().replace(" ","");//s1.replace('a','e');//replaces all occurrences of 'a' to 'e'
-            //System.out.println("KEY: " + titulo +" Precio: " + shoppingCart.getPrecioTotal() + "\n");
-            //setPreferences((titulo), price);
-            //float price = shoppingCart.getPrecio() * valor;
-            //setPreferences(String.valueOf(textTitulo), String.valueOf(price));
+            System.out.println("KEY: " + titulo +" Precio: " + carrito.getPrecioTotal() + "\n");
+            //setPreferences((titulo), precio);
+            //float precio = carrito.getPrecio() * valor;
+            //setPreferences(String.valueOf(textTitulo), String.valueOf(precio));
 
         }else {
-            textCantidad.setText(String.valueOf(shoppingCart.getCantidad()));
+            textCantidad.setText(String.valueOf(carrito.getCantidad()));
 
 
-            textPrecio.setText("S/"+(shoppingCart.getPrecioTotal()));
+            textPrecio.setText("S/"+(carrito.getPrecioTotal()));
             String titulo = textTitulo.getText().toString().replace(" ","");//s1.replace('a','e');//replaces all occurrences of 'a' to 'e'
-            System.out.println("KEY: " + titulo +" Precio: " + shoppingCart.getPrecioTotal() + "\n");
-            //setPreferences((titulo), price);
+            System.out.println("KEY: " + titulo +" Precio: " + carrito.getPrecioTotal() + "\n");
+            //setPreferences((titulo), precio);
         }
 
     }
@@ -121,10 +113,10 @@ public class Detalles_activity extends AppCompatActivity implements View.OnClick
     }
     // esto es para que no de error al obtener una imagen
     private void getImageView(){
-        if(shoppingCart.getImage()!=null){
-            if(!shoppingCart.getImage().isEmpty()){
+        if(carrito.getImage()!=null){
+            if(!carrito.getImage().isEmpty()){
                 Glide.with(this)
-                        .load(shoppingCart.getImage())
+                        .load(carrito.getImage())
                         .placeholder(R.drawable.logo)
                         .into(imageView);
             }
@@ -134,90 +126,72 @@ public class Detalles_activity extends AppCompatActivity implements View.OnClick
     private void getClassCarrito(){
         Bundle bundle = getIntent().getExtras();
 
-        // Aqui hacemos uso de la clase Constants mandamos a llamar intent_name
-        shoppingCart = bundle.getParcelable(Constants.INTENT_NAME);
-
+        //aqui hacemos uso de la clase carrito mandamos a llamar intent_name
+        carrito = bundle.getParcelable(Constants.INTENT_NAME);
     }
 
     private void setViews(){
-        textTitulo.setText(shoppingCart.getTitulo());
-        textDescripcion.setText(shoppingCart.getDescripcion());
-        textPrecio.setText(new StringBuilder().append("S/").append(shoppingCart.getPrecioTotal()).toString());
+        textTitulo.setText(carrito.getTitulo());
+        textDescripcion.setText(carrito.getDescripcion());
+        textPrecio.setText("S/"+((carrito.getPrecioTotal())));
         // Warning
-        // Si no esta shoppingCart en el SharedPreferences, entonces la amount por defecto es null
+        // Si no esta carrito en el SharedPreferences, entonces la cantidad por defecto es null
         // porque el Json que traemos del server no tiene dicho valor
 
-        textCantidad.setText(String.valueOf(shoppingCart.getCantidad()));
+        textCantidad.setText(String.valueOf(carrito.getCantidad()));
 
 
     }
 
     boolean estaEnSharedPreference = false;
     boolean inCarrito = false;
-
-    private final List<ShoppingCart> shoppingCartListDatoes = new ArrayList<>();
+    private final List<Carrito> carritoListDatoes = new ArrayList<>();
 
     private void CargarDatosCarrito(Integer idCompra) {
         // si hay datos
         if(preferences.contains(Constants.SHARED_PREFERENCES_NAME)){
             // cargamos la lista entonces
             String datos = preferences.getString(Constants.SHARED_PREFERENCES_NAME,"");
-            Type typeList = new TypeToken<List<ShoppingCart>>(){}.getType();
-            shoppingCartListDatoes.addAll(new Gson().fromJson(datos,typeList));
+            Type typeList = new TypeToken<List<Carrito>>(){}.getType();
+            carritoListDatoes.addAll(new Gson().fromJson(datos,typeList));
 
             // Con el foreach recorremos la lista de datos
-            for (ShoppingCart shoppingCart : shoppingCartListDatoes){
+            for (Carrito carrito : carritoListDatoes){
                 // Aqui comparamos los IDs si son iguales es true
-                if(shoppingCart.getId() == (idCompra)){
+                if(carrito.getId().equals(idCompra)){
                     estaEnSharedPreference = true;
                     inCarrito = true;
-                    this.shoppingCart = shoppingCart;
-                    valor = this.shoppingCart.getCantidad();
+                    carrito = carrito;
+                    valor = this.carrito.getCantidad();
                     break;
                 }
             }
             updateBackGround(estaEnSharedPreference);
-
         }
-
-
     }
 
     @Override
     public void onBackPressed() {
-        /*
-         estaEnSharedPreference = falso
-         .->>>>>>>>>>>  GuardarOrRemover() =  anadir
-
-         estaEnSharedPreference = true
-         .->>>>>>>>>>>  GuardarOrRemover() =  eliminar
-         */
-
         if(inCarrito){
-
-            for(ShoppingCart shoppingCart : shoppingCartListDatoes){
-
-                if(shoppingCart.getId() == (this.shoppingCart.getId())){
-                    shoppingCart = this.shoppingCart;
+            for(Carrito carrito : carritoListDatoes){
+                if(carrito.getId().equals(this.carrito.getId())){
+                    carrito = this.carrito;
                     break;
                 }
             }
 
             @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editor = preferences.edit();
-            editor.putString(Constants.SHARED_PREFERENCES_NAME, new Gson().toJson(shoppingCartListDatoes));
+            editor.putString(Constants.SHARED_PREFERENCES_NAME, new Gson().toJson(carritoListDatoes));
             editor.apply();
-
         }
-
         super.onBackPressed();
     }
-
-
 
     // Aqui actualizamos el color
     private void updateBackGround(boolean estaInDatos){
         // Si estaInDatos es verdadero entonces para pintarlo de color verde el boton
         if(estaInDatos){
+            // Si el
             addShopping.setBackground(this.getResources().getDrawable(R.drawable.border_carrito_green));
             inCarrito =  true;
         } else {
@@ -231,28 +205,27 @@ public class Detalles_activity extends AppCompatActivity implements View.OnClick
         if(estaEnSharedPreference){
             // Si hay datos lo eliminara
             estaEnSharedPreference = false;
-            Iterator<ShoppingCart> itr = shoppingCartListDatoes.iterator();
+            Iterator<Carrito> itr = carritoListDatoes.iterator();
 
             // Mientras halla siguiente va seguir la condicion
             while (itr.hasNext()) {
                 // Aqui obtenemos el id y lo comparamos con el siguiente id si es igual lo borrara
-                if(shoppingCart.getId() == (itr.next().getId())){
+                if(carrito.getId().equals(itr.next().getId())){
                     itr.remove();
-                    Toast.makeText(getApplicationContext(), "Quitado del shoppingCart" , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Quitado del carrito" , Toast.LENGTH_SHORT).show();
                     break;
                 }
             }
         } else {
             // sino está lo agregas
             estaEnSharedPreference = true;
-            shoppingCartListDatoes.add(shoppingCart);
-            Toast.makeText(getApplicationContext(), "Añadido al shoppingCart" , Toast.LENGTH_SHORT).show();
+            carritoListDatoes.add(carrito);
+            Toast.makeText(getApplicationContext(), "Añadido al carrito" , Toast.LENGTH_SHORT).show();
         }
-
 
         // Aqui le estoy diciendo que me guarde los datos en un json y aplico los cambios
         @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(Constants.SHARED_PREFERENCES_NAME, new Gson().toJson(shoppingCartListDatoes));
+        editor.putString(Constants.SHARED_PREFERENCES_NAME, new Gson().toJson(carritoListDatoes));
         editor.apply();
 
         // Aqui llamamos a la funcion updateBackGranud y como parametro le ponemos estaInDatos
@@ -273,7 +246,6 @@ public class Detalles_activity extends AppCompatActivity implements View.OnClick
     }
     @Override
     public void onClick(View view) {
-
     }
     /*private void getRequest(){
         RequestQueue requestQueue = VolleyData.newRequestQueue(Detalles_activity.this);
@@ -281,12 +253,12 @@ public class Detalles_activity extends AppCompatActivity implements View.OnClick
         StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_REQUEST, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                textDescripcion.setText("uploadDataFireBase: " + response);
+                textDescripcion.setText("data: " + response);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                textDescripcion.setText("uploadDataFireBase: " + error);
+                textDescripcion.setText("data: " + error);
             }
         });
         requestQueue.add(stringRequest);
@@ -387,7 +359,7 @@ public class Detalles_activity extends AppCompatActivity implements View.OnClick
     }
 
     private void getClientSecret(String custumerID, String EphericalKey) {
-        // First get uploadDataFireBase of DataBase :C
+        // First get data of DataBase :C
         FirebaseData firebaseData = new FirebaseData();
         firebaseData.getDataUser(Detalles_activity.this, new EventListener<DocumentSnapshot>() {
             @Override
@@ -428,9 +400,9 @@ public class Detalles_activity extends AppCompatActivity implements View.OnClick
                     @Override
                     protected Map<String, String> getParams() throws AuthFailureError {
                         Map<String, String> params = new HashMap<>();
-                        payment = textPrecio.getText().toString();
+                        PagoStripe = textPrecio.getText().toString();
 
-                        String[] parts = payment.split("\\.");
+                        String[] parts = PagoStripe.split("\\.");
                         String apellidos = value.getString("apellidos");
                         String direccion = value.getString("direccion");
                         String edad = value.getString("edad");

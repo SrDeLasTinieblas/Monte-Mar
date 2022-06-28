@@ -13,7 +13,7 @@ import android.widget.GridView;
 
 import com.monte.mar.CarritoAdaptador;
 import com.monte.mar.constants.Constants;
-import com.monte.mar.model.ShoppingCart;
+import com.monte.mar.model.Carrito;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -47,24 +47,24 @@ public class Comprando_fragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.comprando_fragment, container, false);
         //this.tablaCompras = v.findViewById(R.id.tablaCompras);
-        System.out.println("ShoppingCart de compras ");
+        System.out.println("Carrito de compras ");
         CargarDatosCarrito();
         return v;
     }
 
-    private List<ShoppingCart> shoppingCartListCompra;
+    private List<Carrito> carritoListCompra;
     private CarritoAdaptador adapter;
     private void CargarDatosCarrito(){
         SharedPreferences preferences = requireActivity().getSharedPreferences(Constants.SHARED_PREFERENCES_NAME,Context.MODE_PRIVATE);
         if(preferences.contains(Constants.SHARED_PREFERENCES_NAME)){
             String datos = preferences.getString(Constants.SHARED_PREFERENCES_NAME,"No se encontraron datos");
-            Type typeList = new TypeToken<List<ShoppingCart>>(){}.getType();
+            Type typeList = new TypeToken<List<Carrito>>(){}.getType();
 
-            shoppingCartListCompra = new ArrayList<>();
-            shoppingCartListCompra.addAll(new Gson().fromJson(datos,typeList));
-            adapter = new CarritoAdaptador(requireActivity(), shoppingCartListCompra);
-            //                      Context context,List<ShoppingCart> carritoList
-            //                      Context context,List<ShoppingCart> carritoList
+            carritoListCompra = new ArrayList<>();
+            carritoListCompra.addAll(new Gson().fromJson(datos,typeList));
+            adapter = new CarritoAdaptador(requireActivity(), carritoListCompra);
+            //                      Context context,List<Carrito> carritoList
+            //                      Context context,List<Carrito> carritoList
             tablaCompras.setAdapter(adapter);
         }
     }

@@ -25,6 +25,8 @@
     <string name="_3">1</string>
     <string name="email_">Email</string>
     <string name="regitrarse">Regitrarse</string>
+    <string name="mas">+</string>
+    <string name="menos">-</string>
 
 </resources>
 
