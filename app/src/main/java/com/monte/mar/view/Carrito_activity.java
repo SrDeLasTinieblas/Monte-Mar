@@ -30,6 +30,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -39,7 +40,7 @@ import monte.montemar.R;
 public class Carrito_activity extends AppCompatActivity {
     private GridView tablaCompras;
     float totalPrice = 0f;
-    
+    private final List<ShoppingCart> shoppingCartListDatoes = new ArrayList<>();
     SweetAlertDialog sweetAlertDialog = new SweetAlertDialog();
     String payment = "";
     FirebaseFirestore firebaseFirestore;
@@ -47,7 +48,9 @@ public class Carrito_activity extends AppCompatActivity {
     List<Integer> amount = new ArrayList<>();
     String quantityAndProducts;
     TextView price;
+    SharedPreferences sharedPreferences;
 
+    private SharedPreferences preferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +63,54 @@ public class Carrito_activity extends AppCompatActivity {
         addDataTrolley();
         //onCustomers();
     }
+
+    private boolean EmptyOrNoEmpty(){
+        // cargamos la lista entonces
+        /*String datos = preferences.getString(Constants.SHARED_PREFERENCES_NAME, "");
+            Type typeList = new TypeToken<List<ShoppingCart>>() {
+            }.getType();
+            shoppingCartListDatoes.addAll(new Gson().fromJson(datos, typeList));
+            Log.d("shoppingCartListDatoes", "" + shoppingCartListDatoes);*/
+        return preferences.contains(Constants.SHARED_PREFERENCES_NAME);
+    }
+
+
+
+    public void delete(View view){
+        try {
+            //SharedPreferences preferences = getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
+
+            SharedPreferences.Editor editor = getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, MODE_PRIVATE).edit();
+            editor.clear().apply();
+
+            if(preferences.contains(Constants.SHARED_PREFERENCES_NAME)) {
+                // cargamos la lista entonces
+                String datos = preferences.getString(Constants.SHARED_PREFERENCES_NAME, "");
+                Type typeList = new TypeToken<List<ShoppingCart>>() {
+                }.getType();
+                shoppingCartListDatoes.addAll(new Gson().fromJson(datos, typeList));
+
+                Log.d("shoppingCartListDatoes", ""+shoppingCartListDatoes);
+
+            }else {
+                System.out.println("No hay datos :(");
+            }
+
+        }catch (Exception e){
+            System.out.println("==> "+e);
+        }
+
+        //System.out.println(datos);
+        /*Type typeList = new TypeToken<List<ShoppingCart>>(){}.getType();
+        shoppingCartListDatoes.addAll(new Gson().fromJson(datos,typeList));
+        System.out.println("hola");
+        Iterator<ShoppingCart> itr = shoppingCartListDatoes.iterator();
+        itr.remove();
+        System.out.println("==>"+itr);*/
+
+    }
+
+
 
     private List<ShoppingCart> shoppingCartListCompra;
     private CarritoAdaptador adapter;

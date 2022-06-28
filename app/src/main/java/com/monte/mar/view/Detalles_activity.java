@@ -32,23 +32,13 @@ import monte.montemar.R;
 public class Detalles_activity extends AppCompatActivity implements View.OnClickListener {
     private ShoppingCart shoppingCart;
     private SharedPreferences preferences;
-    //SharedPreferences.Editor editor;
 
-    SweetAlertDialog sweetAlertDialog = new SweetAlertDialog();
     TextView textTitulo,textDescripcion , textPrecio;
     ImageView imageView;
     ImageButton addShopping;
 
-    PaymentSheet paymentSheet;
-    String custumerID;
-    String EphericalKey;
-    String ClientSecret;
-
     private int valor = 1;
-    float precioTotal = 0f;
-    String PagoStripe = "";
     TextView Aumentar, Disminuir, textCantidad;
-    List<String> productos = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,7 +98,7 @@ public class Detalles_activity extends AppCompatActivity implements View.OnClick
 
             textPrecio.setText("S/"+(shoppingCart.getPrecioTotal()));
             String titulo = textTitulo.getText().toString().replace(" ","");//s1.replace('a','e');//replaces all occurrences of 'a' to 'e'
-            System.out.println("KEY: " + titulo +" Precio: " + shoppingCart.getPrecioTotal() + "\n");
+            //System.out.println("KEY: " + titulo +" Precio: " + shoppingCart.getPrecioTotal() + "\n");
             //setPreferences((titulo), price);
             //float price = shoppingCart.getPrecio() * valor;
             //setPreferences(String.valueOf(textTitulo), String.valueOf(price));
@@ -222,14 +212,7 @@ public class Detalles_activity extends AppCompatActivity implements View.OnClick
         super.onBackPressed();
     }
 
-    public void delete(View view){
 
-        System.out.println("hola");
-        Iterator<ShoppingCart> itr = shoppingCartListDatoes.iterator();
-        itr.remove();
-
-
-    }
 
     // Aqui actualizamos el color
     private void updateBackGround(boolean estaInDatos){
@@ -290,6 +273,7 @@ public class Detalles_activity extends AppCompatActivity implements View.OnClick
     }
     @Override
     public void onClick(View view) {
+
     }
     /*private void getRequest(){
         RequestQueue requestQueue = VolleyData.newRequestQueue(Detalles_activity.this);
