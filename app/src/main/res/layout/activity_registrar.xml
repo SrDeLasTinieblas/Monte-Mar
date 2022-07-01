@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:text="Registrarse"
+        android:textColor="#000000"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.139"
@@ -20,44 +21,92 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
+        android:id="@+id/registroNombre"
+        android:layout_width="168dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/button_white"
+        android:drawableStart="@drawable/button_login"
+        android:drawablePadding="15dp"
+        android:ems="10"
+        android:hint="Nombres"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <EditText
+        android:id="@+id/registroApellido"
+        android:layout_width="168dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="88dp"
+        android:background="@drawable/button_white"
+        android:drawableStart="@drawable/button_login"
+        android:drawablePadding="15dp"
+        android:ems="10"
+        android:hint="Apellidos"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/registroNombre"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <EditText
         android:id="@+id/registroDireccion"
-        android:layout_width="201dp"
-        android:layout_height="39dp"
+        android:layout_width="168dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="28dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/input_login"
+        android:background="@drawable/button_white"
         android:drawableStart="@drawable/button_login"
         android:drawablePadding="15dp"
         android:ems="10"
         android:hint="Direccion"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toStartOf="@+id/registroTelefono"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registroNombre" />
 
     <EditText
-        android:id="@+id/registroEstado"
-        android:layout_width="207dp"
-        android:layout_height="44dp"
+        android:id="@+id/registroTelefono"
+        android:layout_width="168dp"
+        android:layout_height="49dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="28dp"
-        android:background="@drawable/input_login"
+        android:background="@drawable/button_white"
         android:drawableStart="@drawable/button_login"
         android:drawablePadding="15dp"
         android:ems="10"
-        android:hint="Estado y/o Provincia"
+        android:hint="Telefono"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/registroDireccion"
+        app:layout_constraintTop_toBottomOf="@+id/registroApellido" />
+
+    <EditText
+        android:id="@+id/registroEstado"
+        android:layout_width="168dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/button_white"
+        android:drawableStart="@drawable/button_login"
+        android:drawablePadding="15dp"
+        android:ems="10"
+        android:hint="Estado o Provincia"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registroDireccion" />
 
     <EditText
         android:id="@+id/registroEdad"
-        android:layout_width="157dp"
-        android:layout_height="55dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/input_login"
+        android:layout_width="168dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/button_white"
         android:drawableStart="@drawable/button_login"
         android:drawablePadding="15dp"
         android:ems="2"
@@ -72,59 +121,11 @@
         app:layout_constraintVertical_bias="0.142" />
 
     <EditText
-        android:id="@+id/registroNombre"
-        android:layout_width="173dp"
-        android:layout_height="46dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/input_login"
-        android:drawableStart="@drawable/button_login"
-        android:drawablePadding="15dp"
-        android:ems="10"
-        android:hint="Nombres"
-        android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-    <EditText
-        android:id="@+id/registroApellido"
-        android:layout_width="176dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="88dp"
-        android:background="@drawable/input_login"
-        android:drawableStart="@drawable/button_login"
-        android:drawablePadding="15dp"
-        android:ems="10"
-        android:hint="Apellidos"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.035"
-        app:layout_constraintStart_toEndOf="@+id/registroNombre"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/registroContraseña"
-        android:layout_width="364dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/input_login"
-        android:drawableStart="@drawable/button_login"
-        android:drawablePadding="10dp"
-        android:ems="10"
-        android:hint="Contraseña"
-        android:inputType="textPassword"
-        android:singleLine="true"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registroEmail" />
-
-    <EditText
         android:id="@+id/registroEmail"
-        android:layout_width="368dp"
-        android:layout_height="48dp"
+        android:layout_width="348dp"
+        android:layout_height="49dp"
         android:layout_marginTop="28dp"
-        android:background="@drawable/input_login"
+        android:background="@drawable/button_white"
         android:drawableStart="@drawable/button_login"
         android:drawablePadding="15dp"
         android:ems="10"
@@ -136,26 +137,28 @@
         app:layout_constraintTop_toBottomOf="@+id/registroEstado" />
 
     <EditText
-        android:id="@+id/registroTelefono"
-        android:layout_width="152dp"
-        android:layout_height="43dp"
+        android:id="@+id/registroContraseña"
+        android:layout_width="348dp"
+        android:layout_height="49dp"
         android:layout_marginTop="28dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/input_login"
+        android:background="@drawable/button_white"
         android:drawableStart="@drawable/button_login"
-        android:drawablePadding="15dp"
+        android:drawablePadding="10dp"
         android:ems="10"
-        android:hint="Telefono"
-        android:inputType="number"
+        android:hint="Contraseña"
+        android:inputType="textPassword"
+        android:singleLine="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registroApellido" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registroEmail" />
+
 
     <Button
         android:id="@+id/btnRegistrar"
         android:layout_width="186dp"
         android:layout_height="51dp"
         android:layout_marginTop="24dp"
-        android:background="@drawable/button_login"
+        android:background="@drawable/button_white"
         android:onClick="UpDataToAuthentication"
         android:text="Registrarse"
         app:layout_constraintEnd_toEndOf="parent"

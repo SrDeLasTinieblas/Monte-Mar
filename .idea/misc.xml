@@ -10,6 +10,7 @@
         <entry key="..\:/Users/master/AndroidStudioProjects/MonteMar/app/src/main/res/drawable/button_comprar.xml" value="0.158" />
         <entry key="..\:/Users/master/AndroidStudioProjects/MonteMar/app/src/main/res/drawable/button_login.xml" value="0.149" />
         <entry key="..\:/Users/master/AndroidStudioProjects/MonteMar/app/src/main/res/drawable/button_registrar.xml" value="0.216" />
+        <entry key="..\:/Users/master/AndroidStudioProjects/MonteMar/app/src/main/res/drawable/button_white.xml" value="0.12" />
         <entry key="..\:/Users/master/AndroidStudioProjects/MonteMar/app/src/main/res/drawable/ic_baseline_menu_24.xml" value="0.1" />
         <entry key="..\:/Users/master/AndroidStudioProjects/MonteMar/app/src/main/res/drawable/ic_baseline_shopping_cart_24.xml" value="0.1" />
         <entry key="..\:/Users/master/AndroidStudioProjects/MonteMar/app/src/main/res/drawable/ic_frame_3.xml" value="0.148" />
@@ -27,7 +28,7 @@
         <entry key="..\:/Users/master/AndroidStudioProjects/MonteMar/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Users/master/AndroidStudioProjects/MonteMar/app/src/main/res/layout/activity_menu.xml" value="0.1841880341880342" />
         <entry key="..\:/Users/master/AndroidStudioProjects/MonteMar/app/src/main/res/layout/activity_probando_kotlin.xml" value="0.1841880341880342" />
-        <entry key="..\:/Users/master/AndroidStudioProjects/MonteMar/app/src/main/res/layout/activity_registrar.xml" value="0.22" />
+        <entry key="..\:/Users/master/AndroidStudioProjects/MonteMar/app/src/main/res/layout/activity_registrar.xml" value="0.25" />
         <entry key="..\:/Users/master/AndroidStudioProjects/MonteMar/app/src/main/res/layout/activity_splash.xml" value="0.1" />
         <entry key="..\:/Users/master/AndroidStudioProjects/MonteMar/app/src/main/res/layout/app_bar_menu.xml" value="0.1841880341880342" />
         <entry key="..\:/Users/master/AndroidStudioProjects/MonteMar/app/src/main/res/layout/cantdidad_and_addcart.xml" value="0.17264957264957265" />
