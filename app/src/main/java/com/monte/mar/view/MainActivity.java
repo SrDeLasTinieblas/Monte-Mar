@@ -138,6 +138,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             List<Carrito> productsListResponse = new Gson().fromJson(response, typeList);
                             productsList.addAll(productsListResponse);
 
+
                             // Aqui actualizamos el adapter para cargar los datos y que los muestre
                             adaptador = new Adaptador(MainActivity.this, productsList);
                             gridView.setAdapter(adaptador);

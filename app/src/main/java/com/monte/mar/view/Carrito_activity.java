@@ -60,7 +60,7 @@ public class Carrito_activity extends AppCompatActivity {
     private CarritoAdaptador adapter;
     RequestQueue requestQueue;
 
-    private String ip;
+    private final List<Ubicacion> ip = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +72,7 @@ public class Carrito_activity extends AppCompatActivity {
     private void main(){
         definingComponents();
         addDataCart();
-        getDataLocalitation("http://ip.jsontest.com/");
+        getDataIp("http://ip.jsontest.com/");
 
         //onCustomers();
     }
@@ -91,7 +91,7 @@ public class Carrito_activity extends AppCompatActivity {
 
     //https://geo.ipify.org/api/v2/country?apiKey=at_mxXCuA3CYLZ0AD3Lzath30Oprn6YY&ipAddress=190.238.238.248
     //http://ip.jsontest.com/
-    private void getDataLocalitation(String api){
+    private void getDataIp(String api){
         StringRequest request = new StringRequest(
                 Request.Method.GET,
                 api,
@@ -108,15 +108,78 @@ public class Carrito_activity extends AppCompatActivity {
                              *                             productsList.addAll(productsListResponse);
                              */
 
+                            //{"ip": "190.238.238.248"}
                             //Toast.makeText(Carrito_activity.this, response, Toast.LENGTH_SHORT).show();
-                            Type typeList = new TypeToken<Ubicacion>() {
+                            String ip = response.replaceAll("[{/:ip}]","");
+                            String str = ip.substring(1, ip.length() - 1);
+                            String str1 = ip.substring(2, ip.length() - 2);
+                            String str2 = ip.substring(3, ip.length() - 3);
+                            String str3 = ip.substring(4, ip.length() - 4);
+                            //"""190.238.238.248
+                            Toast.makeText(Carrito_activity.this, str3, Toast.LENGTH_SHORT).show();
+                            getDataGeo(str3);
+
+                            /*Type typeList = new TypeToken<Ubicacion>() {
                             }.getType();
-                            String iPS = new Gson().fromJson(response, typeList);
-                            ip = iPS;
+
+                            List<Ubicacion> iPS = new Gson().fromJson(response, typeList);
+                            ip.addAll(iPS);
 
                             System.out.println("==>> IP: " + ip);
-                            Toast.makeText(Carrito_activity.this, ip, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Carrito_activity.this, ip.toString(), Toast.LENGTH_SHORT).show();*/
 
+
+                        } catch (Exception e) {
+                            Log.d("JSONException", e.getMessage());
+                            e.printStackTrace();
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.err.println(error.networkResponse + " error");
+                    }
+                }
+        );
+        // Aqui enviamos la solicitud de la peticion
+        requestQueue.add(request);
+
+    }
+
+    private void getDataGeo(String ip){
+        StringRequest request = new StringRequest(
+                Request.Method.GET,
+                "https://geo.ipify.org/api/v2/country?apiKey=at_mxXCuA3CYLZ0AD3Lzath30Oprn6YY&ipAddress=" + ip,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            //Sleep(5000);
+                            /**
+                             *                             Type typeList = new TypeToken<List<Carrito>>() {
+                             *                             }.getType();
+                             *
+                             *                             List<Carrito> productsListResponse = new Gson().fromJson(response, typeList);
+                             *                             productsList.addAll(productsListResponse);
+                             */
+
+                            //{"ip": "190.238.238.248"}
+                            System.out.println("aaaaaaaa");
+                            System.out.println("==> " + response);
+                            Toast.makeText(Carrito_activity.this, response, Toast.LENGTH_SHORT).show();
+
+                            /*Type typeList = new TypeToken<Ubicacion>() {
+                            }.getType();
+
+                            List<Ubicacion> iPS = new Gson().fromJson(response, typeList);
+                            ip.addAll(iPS);
+
+                            System.out.println("==>> IP: " + ip);
+                            Toast.makeText(Carrito_activity.this, ip.toString(), Toast.LENGTH_SHORT).show();*/
+
+                            //return response;
 
                         } catch (Exception e) {
                             Log.d("JSONException", e.getMessage());

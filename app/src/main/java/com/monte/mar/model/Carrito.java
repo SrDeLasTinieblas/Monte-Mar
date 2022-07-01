@@ -11,6 +11,7 @@ public class Carrito implements Parcelable {
     @SerializedName("Id")
     @Expose
     private Integer id;
+
     @SerializedName("Image")
     @Expose
     private String image;
