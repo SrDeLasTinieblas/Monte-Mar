@@ -2,7 +2,6 @@ package com.monte.mar.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.animation.Animator;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -32,7 +31,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -63,19 +61,9 @@ public class Carrito_activity extends AppCompatActivity {
     }
     private void main(){
         definingComponents();
-        addDataTrolley();
+        addDataCart();
         //onCustomers();
     }
-
-    //private boolean EmptyOrNoEmpty(){
-        // cargamos la lista entonces
-        /*String datos = preferences.getString(Constants.SHARED_PREFERENCES_NAME, "");
-            Type typeList = new TypeToken<List<ShoppingCart>>() {
-            }.getType();
-            shoppingCartListDatoes.addAll(new Gson().fromJson(datos, typeList));
-            Log.d("shoppingCartListDatoes", "" + shoppingCartListDatoes);*/
-        //return preferences.contains(Constants.SHARED_PREFERENCES_NAME);
-    //}
 
     private String getCarrito(){
         SharedPreferences preferences = getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
@@ -88,40 +76,30 @@ public class Carrito_activity extends AppCompatActivity {
         return datos;
     }
 
-    private void registerHandler() {
-
         //lottieAnimationView.loop(false);
-        //lottieAnimationView.playAnimation();
-
-    }
 
 
     public void delete(View view){
 
-        System.out.println("borrado");
-        System.out.println(getCarrito());
         try {
-            System.out.println("delete");
 
             SharedPreferences.Editor editor = getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, MODE_PRIVATE).edit();
             editor.clear().apply();
             shoppingCartListCompra.clear();
 
             adapter = new CarritoAdaptador(this, shoppingCartListCompra);
+            lottieAnimationView.playAnimation();
             tablaCompras.setAdapter(adapter);
 
-            registerHandler();
-
-            //System.out.println("No hay datos :(");
-
         }catch (Exception e){
+            Toast.makeText(this, "Carrito ya limpio", Toast.LENGTH_SHORT).show();
             System.out.println("==>d "+e);
         }
 
     }
 
     @SuppressLint("SetTextI18n")
-    private void addDataTrolley(){
+    private void addDataCart(){
         //Aqui traemos los datos del shared sharedPreferences
         SharedPreferences preferences = getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
 

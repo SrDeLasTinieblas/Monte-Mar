@@ -29,7 +29,7 @@
         android:numColumns="1">
     </GridView>
 
-    <com.airbnb.lottie.LottieAnimationView
+    <!--<com.airbnb.lottie.LottieAnimationView
         android:id="@+id/animateView"
         android:visibility="invisible"
         android:layout_width="301dp"
@@ -46,7 +46,7 @@
         app:layout_constraintWidth_percent="0.4"
         app:lottie_autoPlay="false"
         app:lottie_fileName="clear.json"
-        app:lottie_loop="false" />
+        app:lottie_loop="false" /> -->
 
     <TextView
         android:id="@+id/textPrecioComprando"
@@ -87,10 +87,10 @@
         android:onClick="onClickBuy"
         android:text="@string/comprar"
         android:textColor="@color/white"
+        android:textSize="30sp"
+        android:textStyle="bold" />
 
-        />
-
-    <Button
+    <!--<Button
         android:id="@+id/button"
         android:layout_width="146dp"
         android:layout_height="wrap_content"
@@ -101,7 +101,19 @@
         android:layout_marginBottom="7dp"
         android:layout_toEndOf="@+id/textView"
         android:onClick="delete"
-        android:text="Eliminar carrito" />
+        android:text="Eliminar carrito" /> -->
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animateView"
+        android:layout_width="46dp"
+        android:layout_height="41dp"
+        android:layout_above="@+id/tablaCompras"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="18dp"
+        android:layout_marginBottom="7dp"
+        android:onClick="delete"
+        app:lottie_autoPlay="false"
+        app:lottie_fileName="clear.json"
+        app:lottie_loop="true" />
 
 </RelativeLayout>
