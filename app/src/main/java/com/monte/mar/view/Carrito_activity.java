@@ -13,6 +13,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -23,6 +29,7 @@ import com.monte.mar.constants.Constants;
 import com.monte.mar.model.Carrito;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.monte.mar.model.Ubicacion;
 import com.monte.mar.model.data.FirebaseData;
 import com.monte.mar.model.SweetAlertDialog;
 
@@ -51,6 +58,9 @@ public class Carrito_activity extends AppCompatActivity {
     LottieAnimationView lottieAnimationView;
     private List<Carrito> shoppingCartListCompra;
     private CarritoAdaptador adapter;
+    RequestQueue requestQueue;
+
+    private String ip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +72,8 @@ public class Carrito_activity extends AppCompatActivity {
     private void main(){
         definingComponents();
         addDataCart();
+        getDataLocalitation("http://ip.jsontest.com/");
+
         //onCustomers();
     }
 
@@ -76,10 +88,52 @@ public class Carrito_activity extends AppCompatActivity {
         return datos;
     }
 
+
     //https://geo.ipify.org/api/v2/country?apiKey=at_mxXCuA3CYLZ0AD3Lzath30Oprn6YY&ipAddress=190.238.238.248
     //http://ip.jsontest.com/
-    private void getDataLocalitation(){
+    private void getDataLocalitation(String api){
+        StringRequest request = new StringRequest(
+                Request.Method.GET,
+                api,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            //Sleep(5000);
+                            /**
+                             *                             Type typeList = new TypeToken<List<Carrito>>() {
+                             *                             }.getType();
+                             *
+                             *                             List<Carrito> productsListResponse = new Gson().fromJson(response, typeList);
+                             *                             productsList.addAll(productsListResponse);
+                             */
 
+                            //Toast.makeText(Carrito_activity.this, response, Toast.LENGTH_SHORT).show();
+                            Type typeList = new TypeToken<Ubicacion>() {
+                            }.getType();
+                            String iPS = new Gson().fromJson(response, typeList);
+                            ip = iPS;
+
+                            System.out.println("==>> IP: " + ip);
+                            Toast.makeText(Carrito_activity.this, ip, Toast.LENGTH_SHORT).show();
+
+
+                        } catch (Exception e) {
+                            Log.d("JSONException", e.getMessage());
+                            e.printStackTrace();
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.err.println(error.networkResponse + " error");
+                    }
+                }
+        );
+        // Aqui enviamos la solicitud de la peticion
+        requestQueue.add(request);
 
     }
 
@@ -148,6 +202,8 @@ public class Carrito_activity extends AppCompatActivity {
         this.tablaCompras = findViewById(R.id.tablaCompras);
         price = findViewById(R.id.PrecioTotal);
         lottieAnimationView = (LottieAnimationView) findViewById(R.id.animateView);
+        requestQueue = Volley.newRequestQueue(this);
+
     }
 
     public void onClickBuy(View view) {
