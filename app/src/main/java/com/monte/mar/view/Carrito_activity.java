@@ -72,12 +72,16 @@ public class Carrito_activity extends AppCompatActivity {
         Type typeList = new TypeToken<List<Carrito>>() {
         }.getType();
         shoppingCartListDatoes.addAll(new Gson().fromJson(datos, typeList));
-        //Log.d("shoppingCartListDatoes", ""+shoppingCartListDatoes);
+
         return datos;
     }
 
-        //lottieAnimationView.loop(false);
+    //https://geo.ipify.org/api/v2/country?apiKey=at_mxXCuA3CYLZ0AD3Lzath30Oprn6YY&ipAddress=190.238.238.248
+    //http://ip.jsontest.com/
+    private void getDataLocalitation(){
 
+
+    }
 
     public void delete(View view){
 

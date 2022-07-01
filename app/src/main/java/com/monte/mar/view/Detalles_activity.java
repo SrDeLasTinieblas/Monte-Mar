@@ -60,26 +60,10 @@ public class Detalles_activity extends AppCompatActivity implements View.OnClick
     public void btnAumentando(View view){
         // Add Cantidad en tu Carrito Model
         carrito.setCantidad(++valor);
-
-
         textCantidad.setText(String.valueOf(carrito.getCantidad()));
-
-
         textPrecio.setText("S/"+(carrito.getPrecioTotal()));
-        String titulo = textTitulo.getText().toString().replace(" ","");//s1.replace('a','e');//replaces all occurrences of 'a' to 'e'
-        System.out.println("KEY: " + titulo +" Precio: " + carrito.getPrecioTotal() + "\n");
-        // setPreferences((titulo), precio);
-        /*int e = preferences.getInt("precio", 0);
-        int datos = preferences.getInt("datos", 0);
-
-        System.out.println(e);
-        System.out.println(datos);*/
-
-        //preferences = getSharedPreferences("LimpiatodoKristalClean", Context.MODE_PRIVATE);
-        //String highScore = preferences.getString(("LimpiatodoKristalClean"), "sss");
-        //Log.d("Log==> ", highScore);
-        //System.out.println("dato ==> "+highScore);
-
+        //String titulo = textTitulo.getText().toString().replace(" ","");//s1.replace('a','e');//replaces all occurrences of 'a' to 'e'
+        //System.out.println("KEY: " + titulo +" Precio: " + carrito.getPrecioTotal() + "\n");
     }
 
     public void btnDisminuir(View view){
