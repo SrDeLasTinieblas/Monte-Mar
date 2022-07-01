@@ -37,7 +37,7 @@ public class Carrito implements Parcelable {
     @SerializedName("Titulo")
     @Expose
     private String titulo;
-    @SerializedName("banner")
+    @SerializedName("discount")
     @Expose
     private String banner;
 

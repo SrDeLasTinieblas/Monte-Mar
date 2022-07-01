@@ -2,6 +2,7 @@ package com.monte.mar.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.Animator;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -12,6 +13,7 @@ import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -30,6 +32,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -39,7 +42,7 @@ import monte.montemar.R;
 public class Carrito_activity extends AppCompatActivity {
     private GridView tablaCompras;
     float totalPrice = 0f;
-    private final List<Carrito> carritoListDatoes = new ArrayList<>();
+    private final List<Carrito> shoppingCartListDatoes = new ArrayList<>();
     SweetAlertDialog sweetAlertDialog = new SweetAlertDialog();
     String payment = "";
     FirebaseFirestore firebaseFirestore;
@@ -47,9 +50,10 @@ public class Carrito_activity extends AppCompatActivity {
     List<Integer> amount = new ArrayList<>();
     String quantityAndProducts;
     TextView price;
-    SharedPreferences sharedPreferences;
+    LottieAnimationView lottieAnimationView;
+    private List<Carrito> shoppingCartListCompra;
+    private CarritoAdaptador adapter;
 
-    private SharedPreferences preferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,56 +67,59 @@ public class Carrito_activity extends AppCompatActivity {
         //onCustomers();
     }
 
-    private boolean EmptyOrNoEmpty(){
+    //private boolean EmptyOrNoEmpty(){
         // cargamos la lista entonces
         /*String datos = preferences.getString(Constants.SHARED_PREFERENCES_NAME, "");
-            Type typeList = new TypeToken<List<Carrito>>() {
+            Type typeList = new TypeToken<List<ShoppingCart>>() {
             }.getType();
-            carritoListDatoes.addAll(new Gson().fromJson(datos, typeList));
-            Log.d("carritoListDatoes", "" + carritoListDatoes);*/
-        return preferences.contains(Constants.SHARED_PREFERENCES_NAME);
+            shoppingCartListDatoes.addAll(new Gson().fromJson(datos, typeList));
+            Log.d("shoppingCartListDatoes", "" + shoppingCartListDatoes);*/
+        //return preferences.contains(Constants.SHARED_PREFERENCES_NAME);
+    //}
+
+    private String getCarrito(){
+        SharedPreferences preferences = getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
+        String datos = preferences.getString(Constants.SHARED_PREFERENCES_NAME, "");
+
+        Type typeList = new TypeToken<List<Carrito>>() {
+        }.getType();
+        shoppingCartListDatoes.addAll(new Gson().fromJson(datos, typeList));
+        //Log.d("shoppingCartListDatoes", ""+shoppingCartListDatoes);
+        return datos;
     }
 
+    private void registerHandler() {
+
+        //lottieAnimationView.loop(false);
+        //lottieAnimationView.playAnimation();
+
+    }
 
 
     public void delete(View view){
+
+        System.out.println("borrado");
+        System.out.println(getCarrito());
         try {
-            //SharedPreferences preferences = getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
+            System.out.println("delete");
 
             SharedPreferences.Editor editor = getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, MODE_PRIVATE).edit();
             editor.clear().apply();
+            shoppingCartListCompra.clear();
 
-            if(preferences.contains(Constants.SHARED_PREFERENCES_NAME)) {
-                // cargamos la lista entonces
-                String datos = preferences.getString(Constants.SHARED_PREFERENCES_NAME, "");
-                Type typeList = new TypeToken<List<Carrito>>() {
-                }.getType();
-                carritoListDatoes.addAll(new Gson().fromJson(datos, typeList));
+            adapter = new CarritoAdaptador(this, shoppingCartListCompra);
+            tablaCompras.setAdapter(adapter);
 
-                Log.d("carritoListDatoes", ""+ carritoListDatoes);
+            registerHandler();
 
-            }else {
-                System.out.println("No hay datos :(");
-            }
+            //System.out.println("No hay datos :(");
 
         }catch (Exception e){
-            System.out.println("==> "+e);
+            System.out.println("==>d "+e);
         }
-
-        //System.out.println(datos);
-        /*Type typeList = new TypeToken<List<Carrito>>(){}.getType();
-        carritoListDatoes.addAll(new Gson().fromJson(datos,typeList));
-        System.out.println("hola");
-        Iterator<Carrito> itr = carritoListDatoes.iterator();
-        itr.remove();
-        System.out.println("==>"+itr);*/
 
     }
 
-
-
-    private List<Carrito> carritoListCompra;
-    private CarritoAdaptador adapter;
     @SuppressLint("SetTextI18n")
     private void addDataTrolley(){
         //Aqui traemos los datos del shared sharedPreferences
@@ -124,16 +131,16 @@ public class Carrito_activity extends AppCompatActivity {
             Type typeList;
             typeList = new TypeToken<List<Carrito>>(){}.getType();
 
-            carritoListCompra = new ArrayList<>();
-            carritoListCompra.addAll(new Gson().fromJson(datos,typeList));
-            adapter = new CarritoAdaptador(this, carritoListCompra);
+            shoppingCartListCompra = new ArrayList<>();
+            shoppingCartListCompra.addAll(new Gson().fromJson(datos,typeList));
+            adapter = new CarritoAdaptador(this, shoppingCartListCompra);
             tablaCompras.setAdapter(adapter);
 
             // Aqui hacemos un foreach para recorrer todo lo que esta en las listas y guardarlos
-            for(Carrito carrito : carritoListCompra){
-                totalPrice += carrito.getPrecioTotal();
-                products.add(carrito.getTitulo());
-                amount.add(carrito.getCantidad());
+            for(Carrito shoppingCart : shoppingCartListCompra){
+                totalPrice += shoppingCart.getPrecioTotal();
+                products.add(shoppingCart.getTitulo());
+                amount.add(shoppingCart.getCantidad());
             }
             price.setText("S/"+ totalPrice);
         }
@@ -145,12 +152,12 @@ public class Carrito_activity extends AppCompatActivity {
     }
 
     private void searchItem(String titulo){
-        for(Carrito carrito : carritoListCompra){
-            if (Objects.equals(carrito.getTitulo(), titulo)){
-                System.out.println("Es igual a titulo ==> "+ carrito.getTitulo());
+        for(Carrito shoppingCart : shoppingCartListCompra){
+            if (Objects.equals(shoppingCart.getTitulo(), titulo)){
+                System.out.println("Es igual a titulo ==> "+ shoppingCart.getTitulo());
 
             }else{
-                System.out.println("No es igual a titulo ==> "+ carrito.getTitulo());
+                System.out.println("No es igual a titulo ==> "+ shoppingCart.getTitulo());
             }
         }
     }
@@ -158,6 +165,7 @@ public class Carrito_activity extends AppCompatActivity {
     private void definingComponents(){
         this.tablaCompras = findViewById(R.id.tablaCompras);
         price = findViewById(R.id.PrecioTotal);
+        lottieAnimationView = (LottieAnimationView) findViewById(R.id.animateView);
     }
 
     public void onClickBuy(View view) {
