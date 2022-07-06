@@ -95,6 +95,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(MainActivity.this, Detalles_activity.class);
+                // llamamos a carrito que seria la key y en el otro parametro le pasamos el arrayList y lo llenamos
                 intent.putExtra(Constants.INTENT_NAME, productsList.get(i));
                 startActivity(intent);
             }
@@ -132,14 +133,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     public void onResponse(String response) {
                         try {
                             //Sleep(5000);
+
                             Type typeList = new TypeToken<List<Carrito>>() {
                             }.getType();
 
+                            /**
+                             * creamos un list con la respuesta que nos llega de la api y le decimos que con gson lo convierta a un typeList (Lista de productos)
+                             */
                             List<Carrito> productsListResponse = new Gson().fromJson(response, typeList);
+
+                            // Hacemos el llenado de datos y se lo pasamos a productsList
                             productsList.addAll(productsListResponse);
 
 
-                            // Aqui actualizamos el adapter para cargar los datos y que los muestre
+                            /**
+                             * Aqui usamos lo que tenemos en la clase de adaptador y lo instanciamos
+                             * Le pasamos como parametro el contexto y la lista de productos
+                             * Para despues actualizar todo lo que tenemos en el adaptador
+                             */
                             adaptador = new Adaptador(MainActivity.this, productsList);
                             gridView.setAdapter(adaptador);
 
@@ -194,6 +205,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         requestQueue.add(stringRequest);
     }*/
     public void intoCarrito(/*View view*/) {
+        // Cambiamos de activity
         Intent intent = new Intent(MainActivity.this, Carrito_activity.class);
         startActivity(intent);
     }
@@ -215,6 +227,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void CerrarSession(View view) {
+        // Cerramos sesion
         FirebaseAuth.getInstance().signOut();
         Toast.makeText(MainActivity.this, "Sesion cerrada", Toast.LENGTH_SHORT).show();
         Login();
@@ -222,6 +235,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void Login() {
         Intent i = new Intent(this, Login_Activity.class);
+
+        // Limpiar la pilas de las activity
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(i);
         //Toast.makeText(MainActivity.this, "Login con exito", Toast.LENGTH_SHORT).show();

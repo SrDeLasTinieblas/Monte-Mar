@@ -8,6 +8,10 @@ import com.google.gson.annotations.SerializedName;
 
 public class Carrito implements Parcelable {
 
+    /**
+     * Aqui serializamos el response que nos llega del main activity
+     */
+
     @SerializedName("Id")
     @Expose
     private Integer id;

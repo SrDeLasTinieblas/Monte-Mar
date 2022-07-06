@@ -63,38 +63,4 @@ public class VolleyData {
 
     }
 
-    public void buscarJugador(String URL, Context context){
-        StringRequest request = new StringRequest(
-                Request.Method.GET,
-                URL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            //JSONObject jsonObject = new JSONObject(response);
-
-                            Toast.makeText(context, response, Toast.LENGTH_SHORT).show();
-
-// Cambio ooo
-
-                        } catch (Exception e) {
-                            Log.d("JSONException", e.getMessage());
-                            e.printStackTrace();
-                        }
-
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        System.err.println(error.networkResponse + " error");
-                    }
-                }
-        );
-        // Aqui enviamos la solicitud de la peticion
-        requestQueue.add(request);
-        requestQueue= Volley.newRequestQueue(context);
-
-    }
-
 }
