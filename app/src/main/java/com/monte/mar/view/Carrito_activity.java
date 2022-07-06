@@ -29,9 +29,11 @@ import com.monte.mar.constants.Constants;
 import com.monte.mar.model.Carrito;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.monte.mar.model.Ubicacion;
+import com.monte.mar.model.VolleyData;
 import com.monte.mar.model.data.FirebaseData;
 import com.monte.mar.model.SweetAlertDialog;
+
+import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
@@ -60,7 +62,10 @@ public class Carrito_activity extends AppCompatActivity {
     private CarritoAdaptador adapter;
     RequestQueue requestQueue;
 
-    private final List<Ubicacion> ip = new ArrayList<>();
+    public String Response;
+
+    private String IP;
+    private String IPInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +78,7 @@ public class Carrito_activity extends AppCompatActivity {
         definingComponents();
         addDataCart();
         getDataIp("http://ip.jsontest.com/");
+        //getTest();
 
         //onCustomers();
     }
@@ -88,9 +94,9 @@ public class Carrito_activity extends AppCompatActivity {
         return datos;
     }
 
-
-    //https://geo.ipify.org/api/v2/country?apiKey=at_mxXCuA3CYLZ0AD3Lzath30Oprn6YY&ipAddress=190.238.238.248
+    //https://geo.ipify.org/api/v2/country?apiKey=at_mxXCuA3CYLZ0AD3Lzath30Oprn6YY&ipAddress=?
     //http://ip.jsontest.com/
+
     private void getDataIp(String api){
         StringRequest request = new StringRequest(
                 Request.Method.GET,
@@ -99,6 +105,9 @@ public class Carrito_activity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String ip= jsonObject.getString("ip");
+                            //Toast.makeText(Carrito_activity.this, "La ip de esta red es: ==>> "+ip, Toast.LENGTH_SHORT).show();
                             //Sleep(5000);
                             /**
                              *                             Type typeList = new TypeToken<List<Carrito>>() {
@@ -108,25 +117,7 @@ public class Carrito_activity extends AppCompatActivity {
                              *                             productsList.addAll(productsListResponse);
                              */
 
-                            //{"ip": "190.238.238.248"}
-                            //Toast.makeText(Carrito_activity.this, response, Toast.LENGTH_SHORT).show();
-                            String ip = response.replaceAll("[{/:ip}]","");
-                            String str = ip.substring(1, ip.length() - 1);
-                            String str1 = ip.substring(2, ip.length() - 2);
-                            String str2 = ip.substring(3, ip.length() - 3);
-                            String str3 = ip.substring(4, ip.length() - 4);
-                            //"""190.238.238.248
-                            Toast.makeText(Carrito_activity.this, str3, Toast.LENGTH_SHORT).show();
-                            getDataGeo(str3);
-
-                            /*Type typeList = new TypeToken<Ubicacion>() {
-                            }.getType();
-
-                            List<Ubicacion> iPS = new Gson().fromJson(response, typeList);
-                            ip.addAll(iPS);
-
-                            System.out.println("==>> IP: " + ip);
-                            Toast.makeText(Carrito_activity.this, ip.toString(), Toast.LENGTH_SHORT).show();*/
+                            IP = ip;
 
 
                         } catch (Exception e) {
@@ -148,13 +139,14 @@ public class Carrito_activity extends AppCompatActivity {
 
     }
 
-    private void getDataGeo(String ip){
+    private void getDataGeo(){
         StringRequest request = new StringRequest(
                 Request.Method.GET,
-                "https://geo.ipify.org/api/v2/country?apiKey=at_mxXCuA3CYLZ0AD3Lzath30Oprn6YY&ipAddress=" + ip,
+                "https://geo.ipify.org/api/v2/country?apiKey=at_mxXCuA3CYLZ0AD3Lzath30Oprn6YY&ipAddress="+IP,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+
                         try {
                             //Sleep(5000);
                             /**
@@ -165,21 +157,7 @@ public class Carrito_activity extends AppCompatActivity {
                              *                             productsList.addAll(productsListResponse);
                              */
 
-                            //{"ip": "190.238.238.248"}
-                            System.out.println("aaaaaaaa");
-                            System.out.println("==> " + response);
-                            Toast.makeText(Carrito_activity.this, response, Toast.LENGTH_SHORT).show();
-
-                            /*Type typeList = new TypeToken<Ubicacion>() {
-                            }.getType();
-
-                            List<Ubicacion> iPS = new Gson().fromJson(response, typeList);
-                            ip.addAll(iPS);
-
-                            System.out.println("==>> IP: " + ip);
-                            Toast.makeText(Carrito_activity.this, ip.toString(), Toast.LENGTH_SHORT).show();*/
-
-                            //return response;
+                            IPInfo = response;
 
                         } catch (Exception e) {
                             Log.d("JSONException", e.getMessage());
@@ -197,8 +175,12 @@ public class Carrito_activity extends AppCompatActivity {
         );
         // Aqui enviamos la solicitud de la peticion
         requestQueue.add(request);
-
     }
+
+   /* private void getTest(){
+        VolleyData volleyData = new VolleyData();
+        volleyData.buscarJugador("https://jsonplaceholder.typicode.com/todos/1", getApplicationContext());
+    }*/
 
     public void delete(View view){
 
@@ -271,6 +253,8 @@ public class Carrito_activity extends AppCompatActivity {
 
     public void onClickBuy(View view) {
         try {
+            getDataGeo();
+            Thread.sleep(1000);
             uploadDataFireBase();
         }catch (Exception ex){
             Toast.makeText(this, "Por favor espere un momento", Toast.LENGTH_SHORT).show();
@@ -307,6 +291,8 @@ public class Carrito_activity extends AppCompatActivity {
                 params.put("Estado Y/O provincia", "" + stateAndProvince);
                 params.put("Telefono", "" + phone);
                 params.put("Fecha y hora", "" + TimeDate());
+                params.put("Data", "" + IPInfo);
+
 
                 for (int i = 0; i < products.size(); i++) {
                     quantityAndProducts = products + " amount: " + amount;
