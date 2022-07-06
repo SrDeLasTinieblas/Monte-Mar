@@ -121,10 +121,6 @@ public class Login_Activity extends AppCompatActivity implements View.OnClickLis
         animationView.playAnimation();
     }
 
-    public void test(View view){
-        Toast.makeText(this, "Funciona supongo... u.u", Toast.LENGTH_SHORT).show();
-    }
-
     public void Registrarse(View view){
         Intent i = new Intent(Login_Activity.this, Registrar_activity.class);
         startActivity(i);
