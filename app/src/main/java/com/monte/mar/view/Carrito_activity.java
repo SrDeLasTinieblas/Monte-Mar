@@ -1,7 +1,6 @@
 package com.monte.mar.view;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -11,13 +10,8 @@ import android.view.View;
 import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.airbnb.lottie.LottieAnimationView;
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -29,12 +23,8 @@ import com.monte.mar.constants.Constants;
 import com.monte.mar.model.Carrito;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.monte.mar.model.VolleyData;
 import com.monte.mar.model.data.FirebaseData;
 import com.monte.mar.model.SweetAlertDialog;
-
-import org.json.JSONObject;
-
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -49,7 +39,7 @@ import monte.montemar.R;
 public class Carrito_activity extends AppCompatActivity {
     private GridView tablaCompras;
     float totalPrice = 0f;
-    private final List<Carrito> shoppingCartListDatoes = new ArrayList<>();
+    //private final List<Carrito> shoppingCartListDatoes = new ArrayList<>();
     SweetAlertDialog sweetAlertDialog = new SweetAlertDialog();
     String payment = "";
     FirebaseFirestore firebaseFirestore;
@@ -58,14 +48,14 @@ public class Carrito_activity extends AppCompatActivity {
     String quantityAndProducts;
     TextView price;
     LottieAnimationView lottieAnimationView;
-    private List<Carrito> shoppingCartListCompra;
+    private final List<Carrito> shoppingCartListCompra = new ArrayList<>();
     private CarritoAdaptador adapter;
     RequestQueue requestQueue;
 
-    public String Response;
+    //public String Response;
 
-    private String IP;
-    private String IPInfo;
+    //private String IP;
+    //private String IPInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,13 +67,13 @@ public class Carrito_activity extends AppCompatActivity {
     private void main(){
         definingComponents();
         addDataCart();
-        getDataIp("http://ip.jsontest.com/");
+        //getDataIp("http://ip.jsontest.com/");
         //getTest();
 
         //onCustomers();
     }
 
-    private String getCarrito(){
+    /*private String getCarrito(){
         SharedPreferences preferences = getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
         String datos = preferences.getString(Constants.SHARED_PREFERENCES_NAME, "");
 
@@ -92,12 +82,12 @@ public class Carrito_activity extends AppCompatActivity {
         shoppingCartListDatoes.addAll(new Gson().fromJson(datos, typeList));
 
         return datos;
-    }
+    }*/
 
     //https://geo.ipify.org/api/v2/country?apiKey=at_mxXCuA3CYLZ0AD3Lzath30Oprn6YY&ipAddress=?
     //http://ip.jsontest.com/
 
-    private void getDataIp(String api){
+    /*private void getDataIp(String api){
         StringRequest request = new StringRequest(
                 Request.Method.GET,
                 api,
@@ -117,10 +107,10 @@ public class Carrito_activity extends AppCompatActivity {
                              *                             productsList.addAll(productsListResponse);
                              */
 
-                            IP = ip;
+                           // IP = ip;
 
 
-                        } catch (Exception e) {
+                        /*} catch (Exception e) {
                             Log.d("JSONException", e.getMessage());
                             e.printStackTrace();
                         }
@@ -137,9 +127,9 @@ public class Carrito_activity extends AppCompatActivity {
         // Aqui enviamos la solicitud de la peticion
         requestQueue.add(request);
 
-    }
+    }*/
 
-    private void getDataGeo(){
+    /*private void getDataGeo(){
         StringRequest request = new StringRequest(
                 Request.Method.GET,
                 "https://geo.ipify.org/api/v2/country?apiKey=at_mxXCuA3CYLZ0AD3Lzath30Oprn6YY&ipAddress="+IP,
@@ -157,7 +147,7 @@ public class Carrito_activity extends AppCompatActivity {
                              *                             productsList.addAll(productsListResponse);
                              */
 
-                            IPInfo = response;
+                         /*   IPInfo = response;
 
                         } catch (Exception e) {
                             Log.d("JSONException", e.getMessage());
@@ -175,7 +165,7 @@ public class Carrito_activity extends AppCompatActivity {
         );
         // Aqui enviamos la solicitud de la peticion
         requestQueue.add(request);
-    }
+    }*/
 
    /* private void getTest(){
         VolleyData volleyData = new VolleyData();
@@ -183,9 +173,11 @@ public class Carrito_activity extends AppCompatActivity {
     }*/
 
     public void delete(View view){
-
         try {
-
+            /**
+             * Llamamos a la constante "comprasDatos" para decirle que queremos limpiar todo lo que se encuentre en las
+             *  preferencias y tambien limpiamos la list para despues actualizar el adaptador.
+             */
             SharedPreferences.Editor editor = getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, MODE_PRIVATE).edit();
             editor.clear().apply();
             shoppingCartListCompra.clear();
@@ -195,52 +187,57 @@ public class Carrito_activity extends AppCompatActivity {
             tablaCompras.setAdapter(adapter);
 
         }catch (Exception e){
-            Toast.makeText(this, "Carrito ya limpio", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Carrito ya limpio", Toast.LENGTH_SHORT).show();
             System.out.println("==>d "+e);
         }
 
     }
+    // Comprobando si el carrito esta limpio
+    private boolean isItClean(){
+        SharedPreferences preferences = getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
+        return preferences.contains(Constants.SHARED_PREFERENCES_NAME);
+    }
 
+    private void test(){
+        Toast.makeText(this, "PROBANDOOOOOO", Toast.LENGTH_SHORT).show();
+    }
+    
     @SuppressLint("SetTextI18n")
     private void addDataCart(){
         //Aqui traemos los datos del shared sharedPreferences
         SharedPreferences preferences = getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
 
-        //si hay datos en prefrerencias
-        if(preferences.contains(Constants.SHARED_PREFERENCES_NAME)){
+        /**
+         * Si en el CharedPrefrences contiene la key "comprasDatos" lo que hara sera
+         *  es agregar lo que serializamos en la clase carrito y ponerlo en una list
+         *  y hacemos el llenado de datos y actualizamos el adaptador
+         */
+        if(isItClean()){
             String datos = preferences.getString(Constants.SHARED_PREFERENCES_NAME,"No se encontraron datos");
             Type typeList;
             typeList = new TypeToken<List<Carrito>>(){}.getType();
 
-            shoppingCartListCompra = new ArrayList<>();
             shoppingCartListCompra.addAll(new Gson().fromJson(datos,typeList));
             adapter = new CarritoAdaptador(this, shoppingCartListCompra);
             tablaCompras.setAdapter(adapter);
 
-            // Aqui hacemos un foreach para recorrer todo lo que esta en las listas y guardarlos
+            /** Aqui hacemos un foreach para recorrer todo lo que esta en lista y sacar el precio, titulo y la cantidad
+             *   para asi sacar el precio total, la cantidad y los nombres de los productos
+             */
             for(Carrito shoppingCart : shoppingCartListCompra){
                 totalPrice += shoppingCart.getPrecioTotal();
                 products.add(shoppingCart.getTitulo());
                 amount.add(shoppingCart.getCantidad());
             }
             price.setText("S/"+ totalPrice);
+        }else{
+            test();
         }
     }
 
     private String TimeDate(){
         @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/HH:mm:ss");
         return sdf.format(new Date());
-    }
-
-    private void searchItem(String titulo){
-        for(Carrito shoppingCart : shoppingCartListCompra){
-            if (Objects.equals(shoppingCart.getTitulo(), titulo)){
-                System.out.println("Es igual a titulo ==> "+ shoppingCart.getTitulo());
-
-            }else{
-                System.out.println("No es igual a titulo ==> "+ shoppingCart.getTitulo());
-            }
-        }
     }
 
     private void definingComponents(){
@@ -253,8 +250,6 @@ public class Carrito_activity extends AppCompatActivity {
 
     public void onClickBuy(View view) {
         try {
-            getDataGeo();
-            Thread.sleep(1000);
             uploadDataFireBase();
         }catch (Exception ex){
             Toast.makeText(this, "Por favor espere un momento", Toast.LENGTH_SHORT).show();
@@ -291,8 +286,7 @@ public class Carrito_activity extends AppCompatActivity {
                 params.put("Estado Y/O provincia", "" + stateAndProvince);
                 params.put("Telefono", "" + phone);
                 params.put("Fecha y hora", "" + TimeDate());
-                params.put("Data", "" + IPInfo);
-
+                //params.put("Data", "" + IPInfo);
 
                 for (int i = 0; i < products.size(); i++) {
                     quantityAndProducts = products + " amount: " + amount;
@@ -305,7 +299,6 @@ public class Carrito_activity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void unused) {
                         sweetAlertDialog.sweetAlertSuccessBuy(Carrito_activity.this);
-                        //Toast.makeText(Carrito_activity.this, "Los Datos se enviaron, por favor espere atentamente a su correo", Toast.LENGTH_LONG).show();
                     }
                 });
             }

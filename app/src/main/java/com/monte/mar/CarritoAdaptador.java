@@ -58,7 +58,6 @@ public class CarritoAdaptador extends BaseAdapter {
 
         String TituloActual = carritoList.get(i).getTitulo();
         String DescripcionActual = carritoList.get(i).getDescripcion();
-        String PrecioActual = String.valueOf(carritoList.get(i).getPrecioUnitario());
         String Cantidad = String.valueOf(carritoList.get(i).getCantidad());
         String ImagenActual = carritoList.get(i).getImage();
 
@@ -68,7 +67,6 @@ public class CarritoAdaptador extends BaseAdapter {
         TextView textDescipcion = v.findViewById(R.id.textDescripcion);
         TextView textCantidad = v.findViewById(R.id.textCantidad);
         TextView textPrecio = v.findViewById(R.id.textPrecio);
-        //int precioFinal = PrecioActual*Cantidad;
 
         textTitulo.setText(TituloActual);
         ImageView imagen = v.findViewById(R.id.iconImageView);
@@ -81,21 +79,8 @@ public class CarritoAdaptador extends BaseAdapter {
                 .into(imagen);
 
         for(Carrito carrito : carritoListCompra){
-            //System.out.println(carrito.getTitulo());
             productos.add(carrito.getTitulo());
-            //float e = preferencias.getFloat("precio" , 0.0f);
-            //System.out.println("holaaaa");
         }
-        //for(Carrito carrito : carritoListCompra){
-
-            /*if (Objects.equals(carrito.getTitulo(), "Saca Grasa")){
-                //System.out.println("==> "+carrito.getTitulo());
-                System.out.println("Es igual a titulo ==> "+carrito.getTitulo());
-                textTitulo.setText(TituloActual);
-            }else{
-                System.out.println("No es igual a titulo ==> "+carrito.getTitulo());
-            }*/
-        //}
 
         return v;
     }

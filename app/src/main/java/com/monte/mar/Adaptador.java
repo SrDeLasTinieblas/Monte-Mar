@@ -49,7 +49,7 @@ public class Adaptador extends BaseAdapter {
     @SuppressLint({"ViewHolder", "SetTextI18n"})
     @Override       //position - convertView -  parent
     public View getView(int i, View v, ViewGroup viewGroup) {
-        // Aqui decimos si vista es igual a null(nada) entonces no se va inflar
+        // Aqui decimos si vista es igual a null entonces no se va inflar
         if (v == null) {
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -84,23 +84,10 @@ public class Adaptador extends BaseAdapter {
         return v;
     }
 
-
-    /*private void searchItem(String titulo){
-        for(Carrito carrito : carritoListCompra){
-            if (Objects.equals(carrito.getTitulo(), titulo)){
-                System.out.println("Es igual a titulo ==> "+carrito.getTitulo());
-                //tv.setText("TituloActual");
-            }else{
-                System.out.println("No es igual a titulo ==> "+carrito.getTitulo());
-            }
-        }
-    }*/
-
+    // Funcion para buscar productos
     public void filtrado(String textBuscar){
         int longitud = textBuscar.length();
 
-        //Log.d("adaptador", "Longitud " + longitud);
-        //Log.d("adaptador orginal", new Gson().toJson(this.carritoListOriginal));
         carritoList.clear();
         carritoList.addAll(carritoListOriginal);
 
@@ -116,7 +103,6 @@ public class Adaptador extends BaseAdapter {
                 for (Carrito c: carritoList) {
                     if(c.getTitulo().toLowerCase().contains(textBuscar.toLowerCase())){
                         carritoList.add(c);
-                        System.out.println("Vieja version de android");
                     }
                 }
             }

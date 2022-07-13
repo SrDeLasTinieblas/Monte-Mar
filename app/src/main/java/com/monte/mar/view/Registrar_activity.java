@@ -109,10 +109,12 @@ public class Registrar_activity extends AppCompatActivity implements View.OnClic
 
     }*/
 
+    //Verificamos si esta vacion los inputs
     private boolean dataIsEmpty(String mail, String password, String nombres, String apellidos, String direccion, String estadoProvincia, String telefono, String edad) {
         return mail.isEmpty() || password.isEmpty() || nombres.isEmpty() || apellidos.isEmpty() || direccion.isEmpty() || estadoProvincia.isEmpty() || telefono.isEmpty() || edad.isEmpty();
     }
 
+    // Registramos los datos a la base de datos
     private void registerUser(String mail,String password, String nombre, String apellido, String direccion, String EstadoProvincia, String Telefono, String Edad){
         firebaseAuth.createUserWithEmailAndPassword(mail, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -156,19 +158,17 @@ public class Registrar_activity extends AppCompatActivity implements View.OnClic
     public void UpDataToRealtimeDatabase(){
         Map<String, Object> userData = new HashMap<>();
 
-        // En el map que se llama "userData" agrego los datos del usuario
+        // Metemos los datos en un map de tal manera que firebase
         userData.put("Nombre",Nombres.getText().toString());
         userData.put("Apellido", Apellidos.getText().toString());
         userData.put("Direccion",Direccion.getText().toString());
         userData.put("Telefono",Telefono.getText().toString());
         userData.put("EstadoProvincia", EstadoProvincia.getText().toString());
         userData.put("Edad", Edad.getText().toString());
-        //userData.put("Contraseña", pass.getText().toString());
         userData.put("Email", email.getText().toString());
 
-        // En la base de datos creo un hijo que se llame "Usuarios" y agrego el valor que se encuentra en "userData"
+        // En la base de datos creamos un hijo que se llame "Usuarios" y agrego el valor que se encuentra en el map
         databaseReference.child("Usuarios").push().setValue(userData);
-        //Register();
     }
 
     public void UpDataToAuthentication(View view) {

@@ -39,23 +39,19 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.monte.mar.Adaptador;
 import com.monte.mar.constants.Constants;
 import com.monte.mar.constants.APIs;
-import com.monte.mar.model.VolleyData;
 import com.monte.mar.model.data.FirebaseData;
 import com.monte.mar.model.Carrito;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-//import com.squareup.picasso.Picasso;
-
 import java.lang.reflect.Type;
 import java.util.List;
-
 import java.util.ArrayList;
-
 import monte.montemar.R;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, SearchView.OnQueryTextListener, SearchView.OnCloseListener {
     private final static String CHANNEL_ID = "NOTIFICACION";
     private final static int NOTIFICACION_ID = 0;
+
     LottieAnimationView lottieAnimationView;
     FirebaseAuth firebaseAuth;
     FirebaseFirestore firebaseFirestore;
@@ -65,7 +61,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     SearchView searchView;
     GridView gridView;
     Adaptador adaptador;
-
     ImageView imageView; // LOGO
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
@@ -76,7 +71,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         main();
     }
 
@@ -92,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void tableOnItemListener() {
+        // Aqui agregamos los productos que se mostraran al inicio
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -120,10 +115,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //idUser = firebaseAuth.getCurrentUser().getUid();
     }
 
-    private void setPreferences(){
-        sharedPreferences = this.getSharedPreferences("sesiones", Context.MODE_PRIVATE);
-        editor = sharedPreferences.edit();
-    }
     //http://192.168.1.17:8000/
     private void getData() {
         StringRequest request = new StringRequest(
@@ -135,22 +126,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         try {
                             //Sleep(5000);
 
-                            Type typeList = new TypeToken<List<Carrito>>() {
-                            }.getType();
+                            // Aca estamos diciendo que lo que esta en carrito lo ponga una list
+                            Type typeList = new TypeToken<List<Carrito>>() {}.getType();
 
                             /**
-                             * creamos un list con la respuesta que nos llega de la api y le decimos que con gson lo convierta a un typeList (Lista de productos)
+                             * Creamos una list con la response que nos llega de la api y le decimos que con gson
+                             *  lo convierta a un tipo de lista y lo guarde en "productsListResponse"
                              */
                             List<Carrito> productsListResponse = new Gson().fromJson(response, typeList);
 
-                            // Hacemos el llenado de datos y se lo pasamos a productsList
+                            // llenamos el productsList con los datos que ya hemos guardado antes
                             productsList.addAll(productsListResponse);
 
 
                             /**
                              * Aqui usamos lo que tenemos en la clase de adaptador y lo instanciamos
-                             * Le pasamos como parametro el contexto y la lista de productos
-                             * Para despues actualizar todo lo que tenemos en el adaptador
+                             *  le pasamos como parametro el contexto y la lista de productos
+                             *  para despues actualizar todo lo que tenemos en el adaptador
                              */
                             adaptador = new Adaptador(MainActivity.this, productsList);
                             gridView.setAdapter(adaptador);

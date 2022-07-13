@@ -58,7 +58,7 @@ public class Detalles_activity extends AppCompatActivity implements View.OnClick
     }
 
     public void btnAumentando(View view){
-        // Add Cantidad en tu Carrito Model
+        // Add cantidad en tu Carrito Model
         carrito.setCantidad(++valor);
         textCantidad.setText(String.valueOf(carrito.getCantidad()));
         textPrecio.setText("S/"+(carrito.getPrecioTotal()));
