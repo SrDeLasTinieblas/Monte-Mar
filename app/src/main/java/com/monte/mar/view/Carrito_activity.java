@@ -198,9 +198,9 @@ public class Carrito_activity extends AppCompatActivity {
         return preferences.contains(Constants.SHARED_PREFERENCES_NAME);
     }
 
-    private void test(){
+    /*private void test(){
         Toast.makeText(this, "PROBANDOOOOOO", Toast.LENGTH_SHORT).show();
-    }
+    }*/
     
     @SuppressLint("SetTextI18n")
     private void addDataCart(){
@@ -231,7 +231,7 @@ public class Carrito_activity extends AppCompatActivity {
             }
             price.setText("S/"+ totalPrice);
         }else{
-            test();
+            //test();
         }
     }
 
