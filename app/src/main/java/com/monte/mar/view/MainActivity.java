@@ -39,6 +39,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.monte.mar.Adaptador;
 import com.monte.mar.constants.Constants;
 import com.monte.mar.constants.APIs;
+import com.monte.mar.model.VolleyData;
 import com.monte.mar.model.data.FirebaseData;
 import com.monte.mar.model.Carrito;
 import com.google.gson.Gson;
@@ -171,6 +172,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Aqui enviamos la solicitud de la peticion
         requestQueue.add(request);
     }
+    private void postRequest(){
+    }
+
     /*private void PostRequest(){
         RequestQueue requestQueue = VolleyData.newRequestQueue(MainActivity.this);
         String URL_REQUEST="http://localhost:8080/API-PRUEBA/post_data.php";

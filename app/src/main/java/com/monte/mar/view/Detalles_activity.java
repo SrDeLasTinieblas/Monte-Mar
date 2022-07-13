@@ -153,7 +153,6 @@ public class Detalles_activity extends AppCompatActivity implements View.OnClick
             updateBackGround(estaEnSharedPreference);
         }
     }
-
     @Override
     public void onBackPressed() {
         if(inCarrito){
