@@ -52,11 +52,6 @@ public class Carrito_activity extends AppCompatActivity {
     private CarritoAdaptador adapter;
     RequestQueue requestQueue;
 
-    //public String Response;
-
-    //private String IP;
-    //private String IPInfo;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,9 +79,6 @@ public class Carrito_activity extends AppCompatActivity {
         return datos;
     }*/
 
-    //https://geo.ipify.org/api/v2/country?apiKey=at_mxXCuA3CYLZ0AD3Lzath30Oprn6YY&ipAddress=?
-    //http://ip.jsontest.com/
-
     /*private void getDataIp(String api){
         StringRequest request = new StringRequest(
                 Request.Method.GET,
@@ -106,9 +98,6 @@ public class Carrito_activity extends AppCompatActivity {
                              *                             List<Carrito> productsListResponse = new Gson().fromJson(response, typeList);
                              *                             productsList.addAll(productsListResponse);
                              */
-
-                           // IP = ip;
-
 
                         /*} catch (Exception e) {
                             Log.d("JSONException", e.getMessage());

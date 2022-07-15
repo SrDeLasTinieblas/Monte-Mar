@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         try {
                             //Sleep(5000);
 
-                            // Aca estamos diciendo que lo que esta en carrito lo ponga una list
+                            // Aca estamos diciendo que lo que esta en el carrito lo ponga una list
                             Type typeList = new TypeToken<List<Carrito>>() {}.getType();
 
                             /**
